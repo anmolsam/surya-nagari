@@ -24,6 +24,23 @@
   .page{position:relative;z-index:1;max-width:1020px;margin:0 auto;padding:0 42px}
   .mono{font-family:var(--mono)} .num{font-variant-numeric:tabular-nums}
 
+  /* ── 3D HERO ── */
+  .hero3d{position:relative;height:100vh;margin:0 -42px;border-bottom:1px solid var(--gold-deep);background:#04050c}
+  .hero3d iframe{display:block;width:100%;height:100%;border:0}
+  .h3o{position:absolute;top:30px;left:38px;pointer-events:none;max-width:680px;z-index:5}
+  .h3o .chips{margin-bottom:16px;pointer-events:none}
+  .h3o h1{font-size:clamp(46px,7vw,86px);font-weight:700;line-height:.98;letter-spacing:-.02em;
+    background:linear-gradient(105deg,#f5d77a 5%,var(--gold) 40%,#caa030 70%,#f5d77a 95%);background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 7s ease-in-out infinite;
+    filter:drop-shadow(0 2px 18px rgba(0,0,0,.75));}
+  .h3o .claim{font-family:var(--serif);font-size:clamp(17px,2.4vw,26px);font-weight:300;font-style:italic;color:var(--ink);margin-top:8px;text-shadow:0 1px 12px #000}
+  .h3o .claim b{font-weight:600;font-style:normal;color:var(--gold)}
+  .h3cue{position:absolute;bottom:14px;left:38px;z-index:5;pointer-events:none;
+    font-family:var(--mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--dim);
+    text-shadow:0 1px 8px #000;animation:bob3 3s ease-in-out infinite}
+  @keyframes bob3{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  @media(max-width:800px){.hero3d{margin:0 -22px}.h3o{left:20px;top:20px}.h3cue{left:20px}}
+
   /* ── HERO ── */
   .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px 0 70px;position:relative;
     background:radial-gradient(1000px 540px at 78% 4%, rgba(233,185,73,.10), transparent 65%),
@@ -182,17 +199,28 @@
 
 <div class="page">
 
-  <!-- ═══════════════ HERO / MODEL CARD ═══════════════ -->
-  <div class="hero">
+  <!-- ═══════════════ 3D LIVING HERO ═══════════════ -->
+  <div class="hero3d">
+    <iframe src="township-3d.html?hud=min" title="SŪRYA-1 — the living model, interactive 3D township" allow="fullscreen"></iframe>
+    <div class="h3o">
+      <div class="chips">
+        <span class="chip live" style="background:rgba(5,7,15,.6)">Model release · June 2026 · it is alive</span>
+      </div>
+      <h1>SŪRYA-1</h1>
+      <div class="claim">The world's first <b>living model.</b> This is it — running.</div>
+    </div>
+    <div class="h3cue">drag to orbit · buttons to fly · one day passes every 60s · scroll for the model card ↓</div>
+  </div>
+
+  <!-- ═══════════════ MODEL CARD ═══════════════ -->
+  <div class="hero" style="min-height:auto;padding:90px 0 80px">
     <div class="chips">
-      <span class="chip live">Model release · June 2026</span>
       <span class="chip">Class: Living Foundation Model</span>
       <span class="chip">100 acres · owned · unencumbered</span>
       <span class="chip">Promoter: Anmol · co-designed with AI</span>
+      <span class="chip"><a href="township-3d.html" style="color:inherit;text-decoration:none">open the 3D model fullscreen →</a></span>
     </div>
-    <h1>SŪRYA-1</h1>
-    <div class="claim">The world's first <b>living model.</b></div>
-    <p class="sub">Every model before this one was a model <i>of</i> the world. SŪRYA-1 <b>is</b> a world: a hundred acres of farming, solar, flight, health, water and silence running as one continuously-trained model — that two thousand people live inside. By day it infers. By night, on stored sunlight, it trains. <b>Its single output token is human time.</b> This master document is its model card, its constitution, and its term sheet.</p>
+    <p class="sub">Every model before this one was a model <i>of</i> the world. SŪRYA-1 <b>is</b> a world: a hundred acres of farming, solar, flight, health, water and silence running as one continuously-trained model — that two thousand people live inside. What you just watched above is not a render of the town; it is the town's own logic, drawn: residents walking the rings, farm robots in the rows, drones overhead, the kitchen's smoke that never stops, and the GPU towers burning brighter at night, when the model trains on its day. <b>Its single output token is human time.</b> This master document is its model card, its constitution, and its term sheet.</p>
 
     <div class="speccard">
       <div class="schead"><span>SŪRYA-1 · MODEL CARD</span><span>SN-MASTER-001 · supersedes SN-PR-002 + SN-CHARTER-001</span></div>
@@ -386,11 +414,7 @@
     <div class="gloss"><b>And just outside the boundary:</b> Sūrya Dvār — the mart, the model's API (§08). The boundary is a membrane, not a wall.</div>
 
     <h3>Walk inside the model</h3>
-    <p style="font-family:var(--sans);font-size:14.5px;color:var(--dim)">The body, in three dimensions — live and breathing. Drag to orbit, scroll to zoom, use the buttons to fly between zones. Watch a full day pass every sixty seconds: the GPU towers glow brighter when the town switches from inference to training, the drones keep flying, and the white craft circling the skyport is the 2028 air ambulance.</p>
-    <div style="margin:26px -42px 6px;border:1px solid var(--gold-deep);border-radius:14px;overflow:hidden;background:#04050c">
-      <iframe src="township-3d.html" title="SŪRYA-1 interactive 3D township" style="display:block;width:100%;height:78vh;border:0" loading="lazy"></iframe>
-    </div>
-    <figure style="margin:0 -42px"><figcaption style="margin-top:12px">fig. ib — the living model, walkable · <a href="township-3d.html" style="color:var(--teal);text-decoration:none">open fullscreen →</a></figcaption></figure>
+    <p style="font-family:var(--sans);font-size:14.5px;color:var(--dim)">The living 3D township at the top of this page is this table, breathing: 440 residents visibly outdoors of the 2,000 in context, farm robots in the rows, rovers running deliveries from the skyport to the rings, birds over the wetland, and a full day passing every sixty seconds. <a href="township-3d.html" style="color:var(--teal);text-decoration:none">Open it fullscreen →</a> and use the fly-to buttons to inspect every zone in this table.</p>
   </section>
 
   <!-- ═══════════════ 06 THE SKY ═══════════════ -->
