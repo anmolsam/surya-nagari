@@ -29,6 +29,8 @@
     padding:7px 13px;cursor:pointer;backdrop-filter:blur(6px);transition:all .2s}
   #views button:hover{color:#ece7d8;border-color:var(--gold)}
   #views button.on{color:var(--gold);border-color:var(--gold);background:rgba(233,185,73,.1)}
+  #views button.tourbtn{color:#0b0d08;background:linear-gradient(120deg,#f5d77a,var(--gold));border-color:var(--gold);font-weight:700;letter-spacing:.14em}
+  #views button.tourbtn:hover{filter:brightness(1.12);color:#000}
   #inside{bottom:158px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:96vw}
   #inside .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--teal);text-transform:uppercase;margin-right:4px;text-shadow:0 1px 8px #000}
   #inside button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
@@ -112,10 +114,12 @@ scene.fog=new THREE.FogExp2(0x05070f,0.00038);
 const camera=new THREE.PerspectiveCamera(48,innerWidth/innerHeight,1,8000);
 camera.position.set(620,540,820);
 const controls=new OrbitControls(camera,renderer.domElement);
-controls.enableDamping=true;controls.dampingFactor=.06;
-controls.maxPolarAngle=Math.PI*0.49;controls.minDistance=20;controls.maxDistance=2200;
+controls.enableDamping=true;controls.dampingFactor=.07;
+controls.rotateSpeed=.9;controls.zoomSpeed=1.1;
+controls.maxPolarAngle=Math.PI*0.495;controls.minDistance=20;controls.maxDistance=2200;
 controls.autoRotate=true;controls.autoRotateSpeed=.28;
-controls.addEventListener('start',()=>controls.autoRotate=false);
+renderer.domElement.style.touchAction='none';
+controls.addEventListener('start',()=>{controls.autoRotate=false;stopTour();});
 
 const sunLight=new THREE.DirectionalLight(0xffe9b0,2.6);
 sunLight.castShadow=true;sunLight.shadow.mapSize.set(2048,2048);
@@ -190,16 +194,27 @@ const P=(th,r)=>[Math.cos(th)*r,Math.sin(th)*r];
 const D2R=Math.PI/180;
 function sector(r1,r2,a1,a2,mat,y=0){const g=new THREE.RingGeometry(r1,r2,64,1,a1,a2-a1).rotateX(-Math.PI/2);g.scale(1,1,-1);
  const m=new THREE.Mesh(g,mat);m.receiveShadow=true;m.position.y=y;return m;}
+/* smart labels: big titles (size>=22) show from afar and step aside up close;
+   small detail labels appear only when you fly near. registered for per-frame fading. */
+const allLabels=[];
 function label(text,color='#e9b949',size=26){
-  const pad=20,cnv=document.createElement('canvas'),c=cnv.getContext('2d');
+  const pad=30,cnv=document.createElement('canvas'),c=cnv.getContext('2d');
   c.font=`600 ${size}px ui-monospace, Menlo, monospace`;
-  const w=c.measureText(text).width;cnv.width=w+pad*2;cnv.height=size+pad;
+  const w=c.measureText(text).width;cnv.width=w+pad*2;cnv.height=size+pad+8;
   const c2=cnv.getContext('2d');c2.font=`600 ${size}px ui-monospace, Menlo, monospace`;
-  c2.fillStyle='rgba(5,7,15,0.55)';c2.fillRect(0,0,cnv.width,cnv.height);
+  const r=cnv.height/2;
+  c2.fillStyle='rgba(6,9,16,0.82)';
+  c2.beginPath();c2.roundRect(1,1,cnv.width-2,cnv.height-2,r);c2.fill();
+  c2.strokeStyle=color+'55';c2.lineWidth=2;
+  c2.beginPath();c2.roundRect(1,1,cnv.width-2,cnv.height-2,r);c2.stroke();
   c2.fillStyle=color;c2.textBaseline='middle';c2.fillText(text,pad,cnv.height/2+1);
   const tx=new THREE.CanvasTexture(cnv);tx.anisotropy=4;
-  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthWrite:false}));
-  sp.scale.set(cnv.width*.4,cnv.height*.4,1);return sp;}
+  const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:tx,transparent:true,depthWrite:false,opacity:0}));
+  const k=size>=22?.32:.26;
+  sp.scale.set(cnv.width*k,cnv.height*k,1);
+  sp.userData.tier=size>=22?1:2;
+  allLabels.push(sp);
+  return sp;}
 
 /* ════════════ THE MANDALA — ground rings ════════════ */
 const outer=M(new THREE.CircleGeometry(3000,64).rotateX(-Math.PI/2),lam(0x0a0f0c));outer.position.y=-.5;scene.add(outer);
@@ -329,24 +344,46 @@ const heritage=[
  {wall:0xd9a23a,roof:0x6b3a26,name:'haldi gold'},
  {wall:0x2e6b5a,roof:0x8a4a2e,name:'peacock green'},
  {wall:0xb3522e,roof:0x4a3520,name:'sandstone red'}];
-function ringCluster(cx,cz,r,n,pal){
+function ringCluster(cx,cz,r,n,pal,type){
  const ring=M(new THREE.RingGeometry(r-3,r+3,48).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:plazaTex,roughness:.95,side:THREE.DoubleSide}));
  ring.position.set(cx,.35,cz);scene.add(ring);
  const wallM=new THREE.MeshStandardMaterial({color:pal.wall,roughness:.9});
  const stoneM=new THREE.MeshStandardMaterial({color:0x9a8a72,roughness:1});
- for(let i=0;i<n;i++){const a=i/n*Math.PI*2,hx=cx+Math.cos(a)*r,hz=cz+Math.sin(a)*r;
-  const base=M(new THREE.CylinderGeometry(5.7,6,1,8),stoneM);base.position.set(hx,.5,hz);scene.add(base);
-  const h=M(new THREE.CylinderGeometry(5,5.4,6.5,8),wallM);h.position.set(hx,4.2,hz);h.rotation.y=-a;scene.add(h);
-  const trim=M(new THREE.TorusGeometry(5.2,.22,6,16).rotateX(Math.PI/2),new THREE.MeshStandardMaterial({color:0xc9a227,metalness:.7,roughness:.35}));
-  trim.position.set(hx,7.3,hz);scene.add(trim);
-  const roof=M(new THREE.ConeGeometry(7,4.4,8),lam(pal.roof));roof.position.set(hx,9.6,hz);scene.add(roof);
-  const sp=M(new THREE.BoxGeometry(5,.3,5),new THREE.MeshStandardMaterial({map:panelTex,metalness:.6,roughness:.3}));
-  sp.position.set(hx,12.1,hz);sp.rotation.x=-.3;sp.rotation.y=-a;scene.add(sp);}
+ const trimM=new THREE.MeshStandardMaterial({color:0xc9a227,metalness:.7,roughness:.35});
+ if(type==='lowrise'){
+  /* three low-rise residences — many owners, one meadow */
+  for(let k=0;k<3;k++){const a=k/3*Math.PI*2+.6,hx=cx+Math.cos(a)*(r-4),hz=cz+Math.sin(a)*(r-4);
+   const wt=windowsTexture(6,5,'#ffd76a');
+   const bm=new THREE.MeshStandardMaterial({color:pal.wall,emissiveMap:wt,emissive:0xffc98a,emissiveIntensity:.18,roughness:.85});
+   nightGlows.push({m:bm,base:.18,night:1.6});
+   const b=M(new THREE.BoxGeometry(17,13,12),bm);b.position.set(hx,6.5,hz);b.rotation.y=-a;scene.add(b);
+   const gr=M(new THREE.BoxGeometry(18,1.2,13),greenRoof);gr.position.set(hx,13.6,hz);gr.rotation.y=-a;scene.add(gr);
+   const sp=M(new THREE.BoxGeometry(13,.3,9),new THREE.MeshStandardMaterial({map:panelTex,metalness:.6,roughness:.3}));
+   sp.position.set(hx,14.6,hz);sp.rotation.x=-.12;sp.rotation.y=-a;scene.add(sp);}
+ }else{
+  const villa=type==='villa';
+  const s=villa?1.45:1;
+  for(let i=0;i<n;i++){const a=i/n*Math.PI*2,hx=cx+Math.cos(a)*r,hz=cz+Math.sin(a)*r;
+   const base=M(new THREE.CylinderGeometry(5.7*s,6*s,1,8),stoneM);base.position.set(hx,.5,hz);scene.add(base);
+   const h=M(new THREE.CylinderGeometry(5*s,5.4*s,6.5*s,8),wallM);h.position.set(hx,.7+3.25*s,hz);h.rotation.y=-a;scene.add(h);
+   const trim=M(new THREE.TorusGeometry(5.2*s,.22,6,16).rotateX(Math.PI/2),trimM);
+   trim.position.set(hx,.7+6.5*s,hz);scene.add(trim);
+   const roof=M(new THREE.ConeGeometry(7*s,4.4*s,8),lam(pal.roof));roof.position.set(hx,.7+6.5*s+2.2*s,hz);scene.add(roof);
+   const sp=M(new THREE.BoxGeometry(5*s,.3,5*s),new THREE.MeshStandardMaterial({map:panelTex,metalness:.6,roughness:.3}));
+   sp.position.set(hx,.7+6.5*s+4.6*s,hz);sp.rotation.x=-.3;sp.rotation.y=-a;scene.add(sp);
+   if(villa){const plunge=M(new THREE.CylinderGeometry(2.6,2.6,.5,12),waterMat);
+    const px=cx+Math.cos(a)*(r-11),pz=cz+Math.sin(a)*(r-11);
+    plunge.position.set(px,.55,pz);scene.add(plunge);}}
+ }
  const g=M(new THREE.CircleGeometry(r-8,32).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:meadowTex,roughness:.95}));
- g.position.set(cx,.3,cz);scene.add(g);}
+ g.position.set(cx,.3,cz);scene.add(g);
+ const tl=label(type==='villa'?'VILLAS':type==='lowrise'?'RESIDENCES':'GARDEN HOMES','#f0916f',15);
+ tl.position.set(cx,22,cz);scene.add(tl);}
 const clusterCenters=[];
-for(let i=0;i<6;i++){const [x,z]=P(i*60*D2R+30*D2R,152);clusterCenters.push([x,z]);ringCluster(x,z,26,9,heritage[i]);}
-{const rl=label('LIVING RINGS · 2,000 SEEKERS IN CONTEXT','#f0916f',22);rl.position.set(0,30,180);scene.add(rl);}
+const clusterTypes=['villa','garden','lowrise','garden','lowrise','villa'];
+for(let i=0;i<6;i++){const [x,z]=P(i*60*D2R+30*D2R,152);clusterCenters.push([x,z]);
+ ringCluster(x,z,26,clusterTypes[i]==='villa'?6:9,heritage[i],clusterTypes[i]);}
+{const rl=label('LIVING RINGS · 2,000 RESIDENT-OWNERS','#f0916f',22);rl.position.set(0,30,180);scene.add(rl);}
 
 /* ════════════ LAB BELT — 10 domes, 10 APIs (r≈210) ════════════ */
 const labDefs=[
@@ -867,7 +904,7 @@ const VIEWS={
  'The Mandala':{p:[620,540,820],t:[0,0,0],d:'200 acres in sacred rings: animals guard the outermost circle, a ring of water separates their kingdom from ours, ten lab-APIs orbit the seekers\' homes, and at the exact center stands the question: WHO AM I.'},
  'The Still Point':{p:[70,42,110],t:[0,10,0],d:'The center of everything: the great banyan, three earthen Ramana rooms, the morning yoga circle, one peacock. Every other city puts a monument here. This one puts silence — the stop token the whole mandala orbits.'},
  'The Commons':{p:[120,85,-180],t:[20,5,-60],d:'The attention ring around the silence: university drums, the PRANA clinic, the glass 24/7 kitchen, the clubhouse, the Sabha with its pillar of light, the amphitheatre and fountain.'},
- 'Living Rings':{p:[150,95,250],t:[76,4,132],d:'Six courtyard clusters for 2,000 seekers — science seekers, spiritual seekers, Ramana\'s-question seekers. Timber homes, solar roofs, a shared meadow at every center. Held in context, never truncated.'},
+ 'Living Rings':{p:[150,95,250],t:[76,4,132],d:'Six clusters, three ways to own: villa estates with plunge pools, garden homes, and low-rise residences — 2,000 resident-owners averaging ₹2 Cr each, a ₹4,000 Cr pool that builds everything and endows every life. No tenants, no landlords, no resident staff — only owners, machines, and guests.'},
  'The Lab Belt':{p:[0,130,340],t:[0,8,212],d:'Ten glass biomes in a perfect orbit — flight, battery, health, farm, robotics, silicon, compute, sport, commerce, education. Every department is a lab; every lab trains a model on this land; every model is an API the world can call. Tested here, by the people who live inside it.'},
  'Olympic Ring':{p:[0,190,-110],t:[0,5,-330],d:'Stadium, 50-metre aquatics, velodrome, courts, cricket oval, akhara, archery — Olympic-grade, open to every seeker, every day. The body is also a model: the Sport Lab trains on every lap, and athletes here are seekers of the body\'s own frontier.'},
  'Farms':{p:[190,120,-50],t:[320,5,-60],d:'The embedding layer fans east in a green wedge: crop arcs, herbs, four glass vertical farms, robots in the rows — ANNA\'s ground truth, harvested into the kitchen within hours.'},
@@ -878,11 +915,26 @@ const VIEWS={
 };
 const viewsEl=document.getElementById('views'),infoName=document.querySelector('#info .zname'),infoDesc=document.querySelector('#info .zdesc');
 let camGoal=null;
+/* ▶ cinematic tour — one button for people who will never drag anything */
+const tour={on:false,idx:-1,timer:0};
+const tourBtn=document.createElement('button');
+tourBtn.textContent='▶ tour';tourBtn.className='tourbtn';
+function goView(k){const v=VIEWS[k];
+ camGoal={p:new THREE.Vector3(...v.p),t:new THREE.Vector3(...v.t)};
+ infoName.textContent=k.toUpperCase();infoDesc.textContent=v.d;
+ document.querySelectorAll('#views button').forEach(x=>x.classList.toggle('on',x.textContent===k));}
+function stopTour(){if(!tour.on)return;tour.on=false;tourBtn.textContent='▶ tour';}
+function advanceTour(){const keys=Object.keys(VIEWS);
+ tour.idx=(tour.idx+1)%keys.length;tour.timer=0;goView(keys[tour.idx]);}
+tourBtn.onclick=(e)=>{e.stopPropagation();
+ if(tour.on){stopTour();return;}
+ tour.on=true;controls.autoRotate=false;tourBtn.textContent='■ stop';
+ if(typeof exitBtn!=='undefined')exitBtn.classList.remove('show');
+ controls.minDistance=20;advanceTour();};
+viewsEl.appendChild(tourBtn);
 Object.keys(VIEWS).forEach((k,i)=>{
  const b=document.createElement('button');b.textContent=k;if(i===0)b.classList.add('on');
- b.onclick=()=>{document.querySelectorAll('#views button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
-  const v=VIEWS[k];camGoal={p:new THREE.Vector3(...v.p),t:new THREE.Vector3(...v.t)};
-  controls.autoRotate=false;controls.minDistance=20;infoName.textContent=k.toUpperCase();infoDesc.textContent=v.d;
+ b.onclick=()=>{stopTour();controls.autoRotate=false;controls.minDistance=20;goView(k);
   if(typeof exitBtn!=='undefined')exitBtn.classList.remove('show');};
  viewsEl.appendChild(b);});
 const insideEl=document.getElementById('inside');
@@ -890,7 +942,7 @@ const fadeEl=document.getElementById('fade');
 function fadeTo(fn){fadeEl.style.opacity=1;setTimeout(()=>{fn();setTimeout(()=>fadeEl.style.opacity=0,120);},460);}
 Object.keys(INTERIORS).forEach(k=>{
  const b=document.createElement('button');b.textContent=k;
- b.onclick=()=>{const v=INTERIORS[k];
+ b.onclick=()=>{const v=INTERIORS[k];stopTour();
   fadeTo(()=>{camera.position.set(...v.p);controls.target.set(...v.t);camGoal=null;
    controls.minDistance=2;controls.autoRotate=false;exitBtn.classList.add('show');});
   infoName.textContent='INSIDE · '+k.toUpperCase();infoDesc.textContent=v.d;
@@ -1107,6 +1159,17 @@ function animate(){
   tGpu.textContent=Math.round(day>.08?34+8*Math.random():92+6*Math.random())+' %';
   tOut.textContent=Math.round(PEOPLE*(0.55+0.45*day));
   tDay.textContent=1+Math.floor(t/DAY);}
+
+ /* smart label fading — titles from afar, details up close, never both shouting */
+ for(const L of allLabels){
+  const d=camera.position.distanceTo(L.position);
+  let o;
+  if(L.userData.tier===1) o=THREE.MathUtils.smoothstep(d,130,300);
+  else o=(1-THREE.MathUtils.smoothstep(d,300,500))*THREE.MathUtils.smoothstep(d,14,36);
+  L.material.opacity+=(o-L.material.opacity)*.12;}
+
+ /* cinematic tour pacing */
+ if(tour.on){tour.timer+=dt;if(tour.timer>8.5)advanceTour();}
 
  if(camGoal){camera.position.lerp(camGoal.p,.045);controls.target.lerp(camGoal.t,.05);
   if(camera.position.distanceTo(camGoal.p)<1.5)camGoal=null;}
