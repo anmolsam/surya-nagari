@@ -29,6 +29,15 @@
     padding:8px 15px;cursor:pointer;backdrop-filter:blur(6px);transition:all .2s}
   #views button:hover{color:#ece7d8;border-color:var(--gold)}
   #views button.on{color:var(--gold);border-color:var(--gold);background:rgba(233,185,73,.1)}
+  #inside{bottom:154px;left:50%;transform:translateX(-50%);display:flex;gap:8px;align-items:center;flex-wrap:wrap;justify-content:center;max-width:96vw}
+  #inside .lbl{font-family:var(--mono);font-size:10px;letter-spacing:.26em;color:var(--teal);text-transform:uppercase;margin-right:4px;text-shadow:0 1px 8px #000}
+  #inside button{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--teal);background:rgba(10,20,18,.72);border:1px solid rgba(111,227,200,.3);border-radius:99px;
+    padding:6px 13px;cursor:pointer;backdrop-filter:blur(6px);transition:all .2s}
+  #inside button:hover{color:#fff;border-color:var(--teal)}
+  #inside button.exit{display:none;color:var(--gold);border-color:var(--gold)}
+  #inside button.exit.show{display:inline-block}
+  #fade{position:fixed;inset:0;background:#05070f;opacity:0;pointer-events:none;transition:opacity .45s;z-index:40}
   #info{bottom:86px;left:50%;transform:translateX(-50%);text-align:center;max-width:640px;padding:0 16px}
   #info .zname{font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
   #info .zdesc{font-size:13px;color:var(--dim);margin-top:6px;line-height:1.55;text-shadow:0 1px 8px #000}
@@ -45,7 +54,7 @@
 <div id="loading">WAKING THE LIVING MODEL …</div>
 <div id="scene"></div>
 
-<div class="hud" id="title"><h1>SŪRYA-1</h1><div class="sub">the living model · 100 acres · interactive</div></div>
+<div class="hud" id="title"><h1>SŪRYA-1</h1><div class="sub">humanity-first · a university of the committed · 100 acres</div></div>
 <a class="hud" id="back" href="index.html">← master document</a>
 <div class="hud" id="mode">DAY · INFERENCE</div>
 <div class="hud" id="telem">
@@ -61,7 +70,9 @@
 </div>
 <div class="hud" id="hint">drag — orbit · scroll — zoom · right-drag — pan<br>one full day passes every 60 seconds</div>
 <div class="hud" id="info"><div class="zname">OVERVIEW</div><div class="zdesc">The whole forward pass at once. Sunrise enters at the solar field, food embeds at the farms, attention happens at the commons, and the day's output — time — is lived in the rings.</div></div>
+<div class="hud" id="inside"><span class="lbl">step inside →</span></div>
 <div class="hud" id="views"></div>
+<div id="fade"></div>
 
 <script type="importmap">
 {"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}
@@ -288,7 +299,7 @@ ringCluster(-210,110,42,12);ringCluster(-110,150,36,10);ringCluster(-205,225,38,
   const d2=M(new THREE.CylinderGeometry(10,11,8,12),glassMat(0xe9b949,.35));d2.position.set(58,13,86);scene.add(d2);
   const gr=M(new THREE.CylinderGeometry(17.4,17.4,1.4,12),greenRoof);gr.position.set(58,9.6,86);scene.add(gr);
   const gr2=M(new THREE.CylinderGeometry(11.2,11.2,1.2,12),greenRoof);gr2.position.set(58,17.6,86);scene.add(gr2);
-  const l=label('SCHOOL','#e9b949',19);l.position.set(58,26,86);scene.add(l);}
+  const l=label('UNIVERSITY','#e9b949',19);l.position.set(58,26,86);scene.add(l);}
  /* PRANA CLINIC — white shell with teal glass canopy */
  {const sh=M(new THREE.CapsuleGeometry(9,16,4,12).rotateZ(Math.PI/2),new THREE.MeshStandardMaterial({color:0xe6e0d0,roughness:.4}));
   sh.position.set(120,8,86);scene.add(sh);
@@ -560,13 +571,138 @@ const rovers=[];for(let i=0;i<3;i++){
  scene.add(r);rovers.push({m:r,t:Math.random(),dir:1,sp:.04+i*.012,
   a:new THREE.Vector3(245,1.5,270),b:new THREE.Vector3([-210,-110,-205][i],1.5,[110,150,225][i])});}
 
+/* ───────────────────────── INTERIORS — step inside the model ───────────────────────── */
+const INT_X=1600;
+const rackMats=[];const steamBits=[];const dustMotes=[];const dashPanels=[];
+let scanner,ecgTex,armSeg,sabhaRings=[],sabhaCore;
+function seatPerson(x,y,z,c,ry=0,s=1){
+ const b=M(new THREE.CapsuleGeometry(.5,.8,3,8),lam(c));b.position.set(x,y+.9*s,z);b.scale.set(s,s*.85,s);b.rotation.y=ry;scene.add(b);
+ const h=M(new THREE.SphereGeometry(.4,8,8),lam(skin[Math.floor(Math.random()*4)]));h.position.set(x,y+1.9*s,z);h.scale.set(s,s,s);scene.add(h);}
+
+/* 1 · GPU SERVER HALL */
+{const z0=-800;
+ const floor=M(new THREE.BoxGeometry(74,1,36),lam(0x10141f));floor.position.set(INT_X,0,z0);scene.add(floor);
+ const ceil=M(new THREE.BoxGeometry(74,1,36),lam(0x0a0d16));ceil.position.set(INT_X,13,z0);scene.add(ceil);
+ for(const wz of [-18,18]){const w=M(new THREE.BoxGeometry(74,13,1),lam(0x141a28));w.position.set(INT_X,6.5,z0+wz);scene.add(w);}
+ for(const wx of [-37,37]){const w=M(new THREE.BoxGeometry(1,13,36),lam(0x141a28));w.position.set(INT_X+wx,6.5,z0);scene.add(w);}
+ for(let r=0;r<2;r++)for(let i=0;i<8;i++){
+  const tex=windowsTexture(4,12,'#5eead4','#0a0f18');
+  const m=new THREE.MeshStandardMaterial({color:0x0d1220,emissiveMap:tex,emissive:0x5eead4,emissiveIntensity:1.2,roughness:.4});
+  rackMats.push(m);
+  const rack=M(new THREE.BoxGeometry(3.2,9,1.6),m);rack.position.set(INT_X-28+i*8,4.5,z0+(r?7:-7));scene.add(rack);}
+ for(let i=0;i<3;i++){const pipe=M(new THREE.CylinderGeometry(.6,.6,70).rotateZ(Math.PI/2),lam(0x1a4a44,0x6fe3c8,.4));
+  pipe.position.set(INT_X,12,z0-10+i*10);scene.add(pipe);}
+ const strip=M(new THREE.BoxGeometry(64,.2,1),glowMat(0x6fe3c8,0x6fe3c8,1.4,1.8));strip.position.set(INT_X,.6,z0);scene.add(strip);
+ seatPerson(INT_X+18,0,z0-2,0xece7d8,Math.PI/3);
+ const bot=M(new THREE.BoxGeometry(2,2.4,2),lam(0xd8d2c0,0x6fe3c8,.4));bot.position.set(INT_X-12,1.2,z0+2);scene.add(bot);
+ const li=new THREE.PointLight(0x4a7cc9,420,90);li.position.set(INT_X,11,z0);scene.add(li);}
+
+/* 2 · PRANA CLINIC */
+{const z0=-400;
+ const floor=M(new THREE.CylinderGeometry(23,23,1,24),lam(0xd8d4c8));floor.position.set(INT_X,0,z0);scene.add(floor);
+ const wall=M(new THREE.CylinderGeometry(22,22,11,24,1,true),new THREE.MeshStandardMaterial({color:0xe6e0d0,side:THREE.DoubleSide,roughness:.8}));
+ wall.position.set(INT_X,5.5,z0);scene.add(wall);
+ const bed=M(new THREE.BoxGeometry(9,1.4,3.4),lam(0xece7d8));bed.position.set(INT_X-4,1.6,z0);scene.add(bed);
+ const patient=M(new THREE.CapsuleGeometry(.55,1.6,3,8).rotateZ(Math.PI/2),lam(0xc9b178));patient.position.set(INT_X-4,2.8,z0);scene.add(patient);
+ scanner=M(new THREE.TorusGeometry(3.2,.5,10,28),glowMat(0x6fe3c8,0x6fe3c8,1.2,1.6));
+ scanner.position.set(INT_X-4,2.8,z0);scanner.rotation.y=Math.PI/2;scene.add(scanner);
+ /* animated ECG wall */
+ {const c=document.createElement('canvas');c.width=512;c.height=128;const x=c.getContext('2d');
+  x.fillStyle='#0a1410';x.fillRect(0,0,512,128);x.strokeStyle='#69d98a';x.lineWidth=3;x.beginPath();
+  for(let px=0;px<512;px++){const seg=px%128;let y=64;
+   if(seg>40&&seg<48)y=64-(seg-40)*9;else if(seg>=48&&seg<58)y=-8+ (seg-48)*11;else if(seg>=58&&seg<64)y=102-(seg-58)*6.4;
+   x.lineTo(px,y);}x.stroke();
+  ecgTex=new THREE.CanvasTexture(c);ecgTex.wrapS=THREE.RepeatWrapping;
+  const wallScr=M(new THREE.PlaneGeometry(12,3.4),new THREE.MeshBasicMaterial({map:ecgTex}));
+  wallScr.position.set(INT_X+10,5,z0-21);scene.add(wallScr);}
+ for(const dx of [-14,14]){const tr=M(new THREE.CylinderGeometry(.3,.4,3),lam(0x4a3520));tr.position.set(INT_X+dx,1.5,z0+14);scene.add(tr);
+  const fo=M(new THREE.SphereGeometry(1.6,8,8),lam(0x3f8a4e));fo.position.set(INT_X+dx,3.8,z0+14);scene.add(fo);}
+ seatPerson(INT_X+4,0,z0+4,0x6fe3c8,-Math.PI/2);
+ const li=new THREE.PointLight(0xfff4dc,360,80);li.position.set(INT_X,9,z0);scene.add(li);
+ const li2=new THREE.PointLight(0x6fe3c8,120,40);li2.position.set(INT_X-4,6,z0);scene.add(li2);}
+
+/* 3 · 24/7 KITCHEN */
+{const z0=0;
+ const floor=M(new THREE.CylinderGeometry(21,21,1,20),new THREE.MeshStandardMaterial({map:woodTex,roughness:.9}));floor.position.set(INT_X,0,z0);scene.add(floor);
+ const wall=M(new THREE.CylinderGeometry(20,20,9,20,1,true),new THREE.MeshStandardMaterial({map:woodTex,side:THREE.DoubleSide,roughness:.9}));
+ wall.position.set(INT_X,4.5,z0);scene.add(wall);
+ const table=M(new THREE.BoxGeometry(24,1,4.4),new THREE.MeshStandardMaterial({map:woodTex,roughness:.8}));table.position.set(INT_X,2.4,z0+4);scene.add(table);
+ for(let i=0;i<7;i++){const bowl=M(new THREE.CylinderGeometry(.8,.5,.6,10),lam([0xb05a3c,0xe9b949,0x69d98a][i%3]));
+  bowl.position.set(INT_X-9+i*3,3.2,z0+4);scene.add(bowl);}
+ for(let i=0;i<8;i++)seatPerson(INT_X-10.5+i*3,0,z0+7.5,kurta[i%10],Math.PI,.92);
+ const counter=M(new THREE.BoxGeometry(16,2.6,3),lam(0x6b5d48));counter.position.set(INT_X-2,1.3,z0-12);scene.add(counter);
+ /* robot arm */
+ {const base=M(new THREE.CylinderGeometry(1,1.3,2),lam(0x9aa392));base.position.set(INT_X+6,1,z0-12);scene.add(base);
+  armSeg=new THREE.Group();armSeg.position.set(INT_X+6,2,z0-12);
+  const s1=M(new THREE.BoxGeometry(.8,4,.8),lam(0xd8d2c0));s1.position.y=2;armSeg.add(s1);
+  const s2=M(new THREE.BoxGeometry(3.4,.7,.7),lam(0xd8d2c0));s2.position.set(1.4,4,0);armSeg.add(s2);
+  scene.add(armSeg);}
+ for(let i=0;i<8;i++){const s=new THREE.Sprite(new THREE.SpriteMaterial({color:0xd8d4c8,transparent:true,opacity:.3,depthWrite:false}));
+  s.position.set(INT_X-6+(i%3)*4,4,z0-12);s.scale.set(2,2,1);scene.add(s);steamBits.push({s,off:i*.5});}
+ for(let i=0;i<3;i++){const cord=M(new THREE.CylinderGeometry(.06,.06,3),lam(0x222));cord.position.set(INT_X-8+i*8,7.5,z0);scene.add(cord);
+  const lamp=M(new THREE.SphereGeometry(.9,10,10),glowMat(0xffe9a3,0xffd76a,1.6,2.2));lamp.position.set(INT_X-8+i*8,5.8,z0);scene.add(lamp);}
+ const li=new THREE.PointLight(0xffd9a0,420,70);li.position.set(INT_X,7,z0);scene.add(li);}
+
+/* 4 · RAMANA ROOM — the stop token */
+{const z0=400;
+ const floor=M(new THREE.CylinderGeometry(16,16,1,24),lam(0x5d503e));floor.position.set(INT_X,0,z0);scene.add(floor);
+ const dome=M(new THREE.SphereGeometry(16,24,14,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x6b5d48,side:THREE.DoubleSide,roughness:1}));
+ dome.position.set(INT_X,.5,z0);scene.add(dome);
+ /* the oculus beam */
+ const beam=new THREE.Mesh(new THREE.ConeGeometry(4.6,15,20,1,true),
+  new THREE.MeshBasicMaterial({color:0xffe9a3,transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false,blending:THREE.AdditiveBlending}));
+ beam.position.set(INT_X,8.6,z0);scene.add(beam);
+ const lightPool=M(new THREE.CircleGeometry(4.4,20).rotateX(-Math.PI/2),new THREE.MeshBasicMaterial({color:0xffe9a3,transparent:true,opacity:.22}));
+ lightPool.position.set(INT_X,.55,z0);scene.add(lightPool);
+ for(let i=0;i<14;i++){const m2=new THREE.Sprite(new THREE.SpriteMaterial({color:0xffe9a3,transparent:true,opacity:.3,depthWrite:false}));
+  m2.scale.set(.35,.35,1);scene.add(m2);dustMotes.push({s:m2,off:Math.random(),r:Math.random()*3.6,a:Math.random()*6.28,z0});}
+ /* one person, sitting. that is all. */
+ seatPerson(INT_X+1.5,0,z0+1.2,0xece7d8,-2.4,.95);
+ const li=new THREE.PointLight(0xffe9a3,60,40);li.position.set(INT_X,10,z0);scene.add(li);}
+
+/* 5 · SABHA — the university hall, humans + the model */
+{const z0=800;
+ const floor=M(new THREE.CylinderGeometry(26,26,1,28),new THREE.MeshStandardMaterial({map:plazaTex,roughness:.9}));floor.position.set(INT_X,0,z0);scene.add(floor);
+ const wall=M(new THREE.CylinderGeometry(25,25,10,28,1,true),new THREE.MeshStandardMaterial({color:0x141a28,side:THREE.DoubleSide,roughness:.8}));
+ wall.position.set(INT_X,5,z0);scene.add(wall);
+ for(let r=0;r<3;r++){const step=M(new THREE.CylinderGeometry(13+r*4,14+r*4,1.1,28),lam(0x3a2f1a));
+  step.position.set(INT_X,.6+ -0+r*0+ .6+r*1.1,z0);step.position.y=.6+r*1.1;scene.add(step);}
+ for(let i=0;i<14;i++){const a=i/14*Math.PI*2;const rr=12+(i%3)*4;
+  seatPerson(INT_X+Math.cos(a)*rr,.6+(i%3)*1.1,z0+Math.sin(a)*rr,kurta[i%10],-a+Math.PI/2,.95);}
+ /* the model's presence */
+ const dais=M(new THREE.CylinderGeometry(4,4.6,1.2,20),lam(0x9c7a1f,0xe9b949,.3));dais.position.set(INT_X,.6,z0);scene.add(dais);
+ sabhaCore=M(new THREE.SphereGeometry(2.2,20,20),new THREE.MeshStandardMaterial({color:0xffe9a3,emissive:0xe9b949,emissiveIntensity:1.6,roughness:.3}));
+ sabhaCore.position.set(INT_X,4.6,z0);scene.add(sabhaCore);
+ for(let i=0;i<2;i++){const ring=M(new THREE.TorusGeometry(3.4+i*1.1,.14,8,40),glowMat(0x6fe3c8,0x6fe3c8,1.2,1.6));
+  ring.position.set(INT_X,4.6,z0);ring.rotation.x=Math.PI/2.6+i*.5;scene.add(ring);sabhaRings.push(ring);}
+ const pillar=new THREE.Mesh(new THREE.CylinderGeometry(.9,2.4,8,16,1,true),
+  new THREE.MeshBasicMaterial({color:0xe9b949,transparent:true,opacity:.12,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+ pillar.position.set(INT_X,8.4,z0);scene.add(pillar);
+ /* floating dashboards the humans are reviewing */
+ for(let i=0;i<3;i++){
+  const c=document.createElement('canvas');c.width=256;c.height=128;const x=c.getContext('2d');
+  x.fillStyle='#0a1410';x.fillRect(0,0,256,128);x.strokeStyle=['#e9b949','#6fe3c8','#f0916f'][i];x.lineWidth=3;x.beginPath();x.moveTo(10,100);
+  for(let px=10;px<246;px+=8)x.lineTo(px,100-Math.random()*70-(px/246)*16);x.stroke();
+  x.fillStyle='#5d6072';x.font='11px monospace';x.fillText(['HARVEST vs PREDICTION','COHORT HEALTH BASELINE','MODEL LOSS · NIGHTLY'][i],12,118);
+  const p=new THREE.Mesh(new THREE.PlaneGeometry(6,3),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(c),transparent:true,opacity:.92,side:THREE.DoubleSide}));
+  scene.add(p);dashPanels.push({p,off:i/3*Math.PI*2,z0});}
+ const li=new THREE.PointLight(0xe9b949,300,70);li.position.set(INT_X,8,z0);scene.add(li);}
+
+const INTERIORS={
+ 'Server Hall':{p:[INT_X+30,7,-800+12],t:[INT_X-10,5,-800],d:'Inside the brainstem: sixteen racks of solar-fed accelerators. By day they sell intelligence to the world; at night every rack turns to one job — retraining the town on what the land did today. The technician is passing her Gate exam hours.'},
+ 'PRANA Clinic':{p:[INT_X+14,6,-400+14],t:[INT_X-4,3,-400],d:'No waiting room, no billing desk — PRANA already knows who needs to be here. The ring scanner reads what the band suspected; the wall traces a live heart; the doctor, unhurried, decides. Plants, because healing rooms should be alive.'},
+ '24/7 Kitchen':{p:[INT_X+13,6.5,0+15],t:[INT_X-2,3,0],d:'Three a.m. or noon — the hearth never closes. One long table because eating alone is optional here, bowls from this morning\'s harvest, a robot arm doing the tedium, and steam that the model schedules but never seasons. Taste stays human.'},
+ 'Ramana Room':{p:[INT_X+11,5,400+11],t:[INT_X,3,400],d:'One beam of light. One person. Nothing measured, nothing learned, nothing optimized — the only room in SŪRYA-1 where the model does not run. Every sequence needs its stop token. This is where the town keeps its.'},
+ 'Sabha Hall':{p:[INT_X+19,9,800+17],t:[INT_X,4,800],d:'The university\'s heart: the committed sit in a circle around the model itself, reviewing the night\'s training — harvest vs prediction, cohort health, model loss. The humans correct; the model learns; both leave better. This room is the product.'},
+};
+
 /* ───────────────────────── views ───────────────────────── */
 const VIEWS={
  'Overview':{p:[430,380,560],t:[0,0,0],d:'The whole forward pass at once. Sunrise enters at the solar field, food embeds at the farms, attention happens at the commons, and the day\'s output — time — is lived in the rings.'},
  'Solar + GPU':{p:[-150,130,-30],t:[-165,10,-210],d:'14 MWp of sun-tracking panels — watch them tilt east to west through the day — feeding two green-terraced GPU towers. At night they burn brighter: the town is training. The grass mound is the battery hall: sleep, made of lithium.'},
  'Farms':{p:[60,110,-90],t:[165,5,-215],d:'The embedding layer. Crop rows, orchards, four glass vertical-farm towers with growing racks inside — and the white farm robots working the rows under ANNA\'s 4,000 soil probes.'},
  'Living Rings':{p:[-60,120,330],t:[-180,5,165],d:'The context window: timber courtyard homes with solar roofs and lit windows, in rings around shared meadows. 2,000 humans held in context, never truncated.'},
- 'The Commons':{p:[150,110,300],t:[150,8,120],d:'Attention, all-to-all: the round glass 24/7 kitchen (smoke never stops), the white-shell PRANA clinic, the timber school drums, the rib-domed clubhouse, a fountain, a morning yoga circle at the banyan — and the three earthen Ramana Rooms, where the model does not run.'},
+ 'The Commons':{p:[150,110,300],t:[150,8,120],d:'Attention, all-to-all: the round glass 24/7 kitchen (smoke never stops), the white-shell PRANA clinic, the timber university drums, the rib-domed clubhouse, a fountain, a morning yoga circle at the banyan — and the three earthen Ramana Rooms, where the model does not run.'},
  'The Labs':{p:[64,72,196],t:[64,5,290],d:'Five glass biome domes with timber gridshell ribs — flight, battery, health, farm, robotics — each with a tree growing inside, because the labs are nature-driven by charter. The golden ring before each is the Gate: the exam not even the founder skips.'},
  'Animal Kingdom':{p:[-190,55,200],t:[-190,2,285],d:'Ten acres of frozen weights, now in the flesh: humped Indian cows grazing and ambling, dogs trotting with wagging tails, birds flapping over the wetland, butterflies in the pollinator forest, an open timber gaushala and a glass animal hospital.'},
  'Skyport':{p:[300,110,400],t:[245,8,270],d:'Drone port today, vertiport tomorrow. The pad ring pulses for the delivery drone cycling to the kitchen; rovers roll to the rings; the white craft on approach is the 2028 air ambulance.'},
@@ -578,8 +714,29 @@ Object.keys(VIEWS).forEach((k,i)=>{
  const b=document.createElement('button');b.textContent=k;if(i===0)b.classList.add('on');
  b.onclick=()=>{document.querySelectorAll('#views button').forEach(x=>x.classList.remove('on'));b.classList.add('on');
   const v=VIEWS[k];camGoal={p:new THREE.Vector3(...v.p),t:new THREE.Vector3(...v.t)};
-  controls.autoRotate=false;infoName.textContent=k.toUpperCase();infoDesc.textContent=v.d;};
+  controls.autoRotate=false;controls.minDistance=20;infoName.textContent=k.toUpperCase();infoDesc.textContent=v.d;
+  if(typeof exitBtn!=='undefined')exitBtn.classList.remove('show');};
  viewsEl.appendChild(b);});
+
+/* interior buttons + fade transitions */
+const insideEl=document.getElementById('inside');
+const fadeEl=document.getElementById('fade');
+function fadeTo(fn){fadeEl.style.opacity=1;setTimeout(()=>{fn();setTimeout(()=>fadeEl.style.opacity=0,120);},460);}
+Object.keys(INTERIORS).forEach(k=>{
+ const b=document.createElement('button');b.textContent=k;
+ b.onclick=()=>{const v=INTERIORS[k];
+  fadeTo(()=>{camera.position.set(...v.p);controls.target.set(...v.t);camGoal=null;
+   controls.minDistance=2;controls.autoRotate=false;exitBtn.classList.add('show');});
+  infoName.textContent='INSIDE · '+k.toUpperCase();infoDesc.textContent=v.d;
+  document.querySelectorAll('#views button').forEach(x=>x.classList.remove('on'));};
+ insideEl.appendChild(b);});
+const exitBtn=document.createElement('button');
+exitBtn.textContent='← exit to township';exitBtn.className='exit';
+exitBtn.onclick=()=>{fadeTo(()=>{camera.position.set(430,380,560);controls.target.set(0,0,0);
+  controls.minDistance=20;exitBtn.classList.remove('show');});
+ infoName.textContent='OVERVIEW';infoDesc.textContent=VIEWS['Overview'].d;
+ document.querySelectorAll('#views button').forEach((x,i)=>x.classList.toggle('on',i===0));};
+insideEl.appendChild(exitBtn);
 
 /* ───────────────────────── animate ───────────────────────── */
 const DAY=60;
@@ -741,6 +898,21 @@ function animate(){
   tGpu.textContent=Math.round(day>.08?34+8*Math.random():92+6*Math.random())+' %';
   tOut.textContent=Math.round(PEOPLE*(0.55+0.45*day));
   tDay.textContent=1+Math.floor(t/DAY);}
+
+ /* interiors alive */
+ for(let i=0;i<rackMats.length;i++)rackMats[i].emissiveIntensity=1+.6*Math.sin(t*4+i);
+ if(ecgTex)ecgTex.offset.x=t*.35;
+ if(scanner)scanner.position.x=INT_X-4+Math.sin(t*.8)*3.2;
+ if(armSeg)armSeg.rotation.y=Math.sin(t*1.2)*1.1;
+ for(const sb of steamBits){const ph=(t*.5+sb.off)%1;sb.s.position.y=3.5+ph*5;sb.s.material.opacity=.3*(1-ph);}
+ for(const dm of dustMotes){const ph=(t*.05+dm.off)%1;
+  dm.s.position.set(INT_X+Math.cos(dm.a+t*.06)*dm.r*(1-ph*.35),1.2+ph*12.5,dm.z0+Math.sin(dm.a+t*.06)*dm.r*(1-ph*.35));
+  dm.s.material.opacity=.34*Math.sin(ph*Math.PI);}
+ if(sabhaCore){const br=1+Math.sin(t*1.4)*.09;sabhaCore.scale.set(br,br,br);}
+ for(let i=0;i<sabhaRings.length;i++)sabhaRings[i].rotation.z=t*(.4+i*.25);
+ for(const dp of dashPanels){const a=t*.18+dp.off;
+  dp.p.position.set(INT_X+Math.cos(a)*9,5.4+Math.sin(t*.9+dp.off)*.5,dp.z0+Math.sin(a)*9);
+  dp.p.lookAt(INT_X,5,dp.z0);}
 
  if(camGoal){camera.position.lerp(camGoal.p,.045);controls.target.lerp(camGoal.t,.05);
   if(camera.position.distanceTo(camGoal.p)<1.5)camGoal=null;}
