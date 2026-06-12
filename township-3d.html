@@ -47,7 +47,15 @@
   #back:hover{color:var(--gold);border-color:var(--gold)}
   #loading{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#05070f;z-index:50;
     font-family:var(--mono);color:var(--gold);font-size:13px;letter-spacing:.3em;transition:opacity .8s}
-  @media(max-width:700px){#hint,#back,#telem{display:none}#mode{top:auto;bottom:208px;right:50%;transform:translateX(50%)}}
+  @media(max-width:700px){
+    #hint,#back,#telem{display:none}
+    #mode{top:auto;bottom:214px;right:50%;transform:translateX(50%)}
+    #views,#inside{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;max-width:100vw;padding:0 12px 4px;scrollbar-width:none}
+    #views::-webkit-scrollbar,#inside::-webkit-scrollbar{display:none}
+    #views button,#inside button{flex:0 0 auto;padding:9px 15px;font-size:11px}
+    #info{bottom:96px}
+    #info .zdesc{font-size:12px}
+  }
 </style>
 </head>
 <body>
@@ -59,6 +67,8 @@
 <div class="hud" id="mode">DAY · INFERENCE</div>
 <div class="hud" id="telem">
   <div class="h">LIVE TELEMETRY · SūryaOS</div>
+  <canvas id="tEcg" width="190" height="30" style="display:block;margin:0 0 8px"></canvas>
+  <div class="row"><span>heartbeat</span><b id="tBpm" class="ok">— bpm</b></div>
   <div class="row"><span>solar output</span><b id="tSolar">— MW</b></div>
   <div class="row"><span>battery hall</span><b id="tBatt">— %</b></div>
   <div class="row"><span>gpu utilization</span><b id="tGpu">— %</b></div>
@@ -89,10 +99,11 @@ if (new URLSearchParams(location.search).get('hud')==='min'){
 
 /* ── renderer / scene ── */
 const container=document.getElementById('scene');
-const renderer=new THREE.WebGLRenderer({antialias:true});
-renderer.setPixelRatio(Math.min(devicePixelRatio,1.75));
+const isMobile=Math.min(innerWidth,innerHeight)<760||(navigator.maxTouchPoints>1&&innerWidth<1100);
+const renderer=new THREE.WebGLRenderer({antialias:!isMobile});
+renderer.setPixelRatio(Math.min(devicePixelRatio,isMobile?1.3:1.75));
 renderer.setSize(innerWidth,innerHeight);
-renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+renderer.shadowMap.enabled=!isMobile;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
 container.appendChild(renderer.domElement);
 const scene=new THREE.Scene();
 scene.fog=new THREE.FogExp2(0x05070f,0.00038);
@@ -231,16 +242,28 @@ for(const a of [45,135,225,315]){const th=a*D2R;
  for(const [dx,dz,r,h] of [[0,0,13,21],[7,4,9,17],[-7,-3,10,18],[2,-8,8,16]]){
   const cr=M(new THREE.SphereGeometry(r,12,12),lam(0x24502f));cr.position.set(dx,h,dz);scene.add(cr);}
  for(const [dx,dz] of [[5,2],[-4,3],[1,-5]]){const root=M(new THREE.CylinderGeometry(.3,.5,9),lam(0x4a3520));root.position.set(dx,4.5,dz);scene.add(root);}
- /* three ramana domes around the tree */
+ /* sandstone plinth under the banyan — built for ten thousand years */
+ const plinth=M(new THREE.CylinderGeometry(9,10,1.2,24),new THREE.MeshStandardMaterial({color:0xa8835a,roughness:1}));
+ plinth.position.set(0,.6,0);scene.add(plinth);
+ /* three ramana domes around the tree, brass finials */
  for(const a of [90,210,330]){const [x,z]=P(a*D2R,24);
-  const dome=M(new THREE.SphereGeometry(6.5,16,12,0,Math.PI*2,0,Math.PI/2),lam(0x6b5d48));dome.position.set(x,.4,z);scene.add(dome);}
+  const dome=M(new THREE.SphereGeometry(6.5,16,12,0,Math.PI*2,0,Math.PI/2),new THREE.MeshStandardMaterial({color:0x9a7d5a,roughness:1}));dome.position.set(x,.4,z);scene.add(dome);
+  const fin=M(new THREE.SphereGeometry(.55,8,8),new THREE.MeshStandardMaterial({color:0xc9a227,metalness:.85,roughness:.25}));fin.position.set(x,7.3,z);scene.add(fin);}
+ /* the stone circle — twelve monoliths, the oldest thing humans build */
+ for(let i=0;i<12;i++){const [x,z]=P(i/12*Math.PI*2+.13,41);
+  const stone=M(new THREE.CylinderGeometry(.9,1.25,6.5+Math.sin(i*3)*1.2,5),new THREE.MeshStandardMaterial({color:0xa8835a,roughness:1}));
+  stone.position.set(x,3.2,z);stone.rotation.y=i;stone.rotation.z=(Math.sin(i*7))*.04;scene.add(stone);}
  const ql=label('THE STILL POINT · WHO AM I','#ece7d8',26);ql.position.set(0,40,0);scene.add(ql);}
-/* fountain south of center */
+/* the kund — a stepped stone well, India's oldest water architecture */
 const fountainDrops=[];
-{const basin=M(new THREE.CylinderGeometry(7,8,1.6,16),lam(0x6b5d48));basin.position.set(0,.8,60);scene.add(basin);
- const pool=M(new THREE.CylinderGeometry(6.4,6.4,.6,16),waterMat);pool.position.set(0,1.5,60);scene.add(pool);
+{const stone=new THREE.MeshStandardMaterial({color:0xa8835a,roughness:1});
+ const s1=M(new THREE.CylinderGeometry(10,10.6,1.7,20),stone);s1.position.set(0,.85,60);scene.add(s1);
+ const s2=M(new THREE.CylinderGeometry(8.2,8.6,1.2,20),stone);s2.position.set(0,.6,60);scene.add(s2);
+ const s3=M(new THREE.CylinderGeometry(6.6,6.9,.8,20),stone);s3.position.set(0,.4,60);scene.add(s3);
+ const pool=M(new THREE.CylinderGeometry(5.6,5.6,.5,20),waterMat);pool.position.set(0,.55,60);scene.add(pool);
  for(let i=0;i<16;i++){const d=new THREE.Sprite(new THREE.SpriteMaterial({color:0x9fe8dc,transparent:true,opacity:.8,depthWrite:false}));
-  d.scale.set(.9,.9,1);scene.add(d);fountainDrops.push({s:d,off:i/16});}}
+  d.scale.set(.9,.9,1);scene.add(d);fountainDrops.push({s:d,off:i/16});}
+ const kl=label('THE KUND','#6fe3c8',16);kl.position.set(0,10,60);scene.add(kl);}
 
 /* ════════════ COMMONS RING (r≈85) ════════════ */
 scene.add(sector(52,118,0,Math.PI*2,new THREE.MeshStandardMaterial({map:plazaTex,roughness:.95,side:THREE.DoubleSide}),.18));
@@ -298,18 +321,31 @@ const yogis=[];
   yogis.push({b,h});}}
 
 /* ════════════ LIVING RING — 6 seeker clusters (r≈150) ════════════ */
-function ringCluster(cx,cz,r,n){
+/* heritage palette — lime plaster colors that have survived five centuries of Indian sun */
+const heritage=[
+ {wall:0xe8e0d0,roof:0x8a4a2e,name:'lime white'},
+ {wall:0xd98a72,roof:0x6b3a26,name:'jaipur pink'},
+ {wall:0x3e5a8a,roof:0xb05a3c,name:'jodhpur indigo'},
+ {wall:0xd9a23a,roof:0x6b3a26,name:'haldi gold'},
+ {wall:0x2e6b5a,roof:0x8a4a2e,name:'peacock green'},
+ {wall:0xb3522e,roof:0x4a3520,name:'sandstone red'}];
+function ringCluster(cx,cz,r,n,pal){
  const ring=M(new THREE.RingGeometry(r-3,r+3,48).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:plazaTex,roughness:.95,side:THREE.DoubleSide}));
  ring.position.set(cx,.35,cz);scene.add(ring);
+ const wallM=new THREE.MeshStandardMaterial({color:pal.wall,roughness:.9});
+ const stoneM=new THREE.MeshStandardMaterial({color:0x9a8a72,roughness:1});
  for(let i=0;i<n;i++){const a=i/n*Math.PI*2,hx=cx+Math.cos(a)*r,hz=cz+Math.sin(a)*r;
-  const h=M(new THREE.CylinderGeometry(5,5.4,6.5,8),woodMat);h.position.set(hx,3.3,hz);h.rotation.y=-a;scene.add(h);
-  const roof=M(new THREE.ConeGeometry(7,4.4,8),lam(0x8a4a2e));roof.position.set(hx,8.7,hz);scene.add(roof);
+  const base=M(new THREE.CylinderGeometry(5.7,6,1,8),stoneM);base.position.set(hx,.5,hz);scene.add(base);
+  const h=M(new THREE.CylinderGeometry(5,5.4,6.5,8),wallM);h.position.set(hx,4.2,hz);h.rotation.y=-a;scene.add(h);
+  const trim=M(new THREE.TorusGeometry(5.2,.22,6,16).rotateX(Math.PI/2),new THREE.MeshStandardMaterial({color:0xc9a227,metalness:.7,roughness:.35}));
+  trim.position.set(hx,7.3,hz);scene.add(trim);
+  const roof=M(new THREE.ConeGeometry(7,4.4,8),lam(pal.roof));roof.position.set(hx,9.6,hz);scene.add(roof);
   const sp=M(new THREE.BoxGeometry(5,.3,5),new THREE.MeshStandardMaterial({map:panelTex,metalness:.6,roughness:.3}));
-  sp.position.set(hx,11.2,hz);sp.rotation.x=-.3;sp.rotation.y=-a;scene.add(sp);}
+  sp.position.set(hx,12.1,hz);sp.rotation.x=-.3;sp.rotation.y=-a;scene.add(sp);}
  const g=M(new THREE.CircleGeometry(r-8,32).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:meadowTex,roughness:.95}));
  g.position.set(cx,.3,cz);scene.add(g);}
 const clusterCenters=[];
-for(let i=0;i<6;i++){const [x,z]=P(i*60*D2R+30*D2R,152);clusterCenters.push([x,z]);ringCluster(x,z,26,9);}
+for(let i=0;i<6;i++){const [x,z]=P(i*60*D2R+30*D2R,152);clusterCenters.push([x,z]);ringCluster(x,z,26,9,heritage[i]);}
 {const rl=label('LIVING RINGS · 2,000 SEEKERS IN CONTEXT','#f0916f',22);rl.position.set(0,30,180);scene.add(rl);}
 
 /* ════════════ LAB BELT — 10 domes, 10 APIs (r≈210) ════════════ */
@@ -329,6 +365,7 @@ labDefs.forEach((L,i)=>{
  const fo=M(new THREE.SphereGeometry(2.2,8,8),lam(0x3f8a4e));fo.position.set(x+3,5.8,z-3);scene.add(fo);
  const [gx,gz]=P(th,193);
  const gate=M(new THREE.TorusGeometry(3.8,.6,8,24),glowMat(0x9c7a1f,0xe9b949,.6,2));gate.position.set(gx,4,gz);gate.rotation.y=-th;scene.add(gate);
+ const fin=M(new THREE.SphereGeometry(.6,8,8),new THREE.MeshStandardMaterial({color:0xc9a227,metalness:.85,roughness:.25}));fin.position.set(x,13.4,z);scene.add(fin);
  const l=label(L.n+' LAB','#'+L.c.toString(16).padStart(6,'0'),17);l.position.set(x,18,z);scene.add(l);});
 {const ll=label('THE LAB BELT · TEN LABS · TEN APIs TO THE WORLD','#6fe3c8',22);ll.position.set(0,40,-230);scene.add(ll);}
 
@@ -536,6 +573,76 @@ for(let i=0;i<12;i++){
  g.userData={w1,w2};scene.add(g);
  birds.push({m:g,th:i/12*Math.PI*2,h:18+(i%3)*7,sp:.04+(i%3)*.012});}
 
+/* ════════════ THE BEAUTY LAYER — color, flowers, flags, diyas, the heartbeat ════════════ */
+/* rangoli — hand-drawn mandala discs at the gathering places */
+function rangoliTex(){
+ const c=document.createElement('canvas');c.width=c.height=256;const x=c.getContext('2d');
+ x.translate(128,128);
+ const cols=['#e89b2e','#d4647a','#ece7d8','#2e6b5a','#3e5a8a','#c23b2e'];
+ for(let ring=5;ring>=0;ring--){
+  x.fillStyle=cols[ring];x.beginPath();
+  const r=18+ring*18,petals=8+ring*4;
+  for(let p=0;p<=petals*8;p++){const a=p/(petals*8)*Math.PI*2;
+   const rr=r+Math.sin(a*petals)*7;
+   p===0?x.moveTo(Math.cos(a)*rr,Math.sin(a)*rr):x.lineTo(Math.cos(a)*rr,Math.sin(a)*rr);}
+  x.closePath();x.fill();}
+ x.fillStyle='#e9b949';x.beginPath();x.arc(0,0,12,0,7);x.fill();
+ const t=new THREE.CanvasTexture(c);t.anisotropy=4;return t;}
+{const rt=rangoliTex();
+ for(const [x,z,s] of [[0,98,9],[kitchenPos[0],kitchenPos[1]+18,7],[540,0,8]]){
+  const r=new THREE.Mesh(new THREE.CircleGeometry(s,32).rotateX(-Math.PI/2),new THREE.MeshStandardMaterial({map:rt,transparent:true,roughness:.9}));
+  r.position.set(x,.42,z);r.receiveShadow=true;scene.add(r);}}
+/* flowers — instanced marigold, rose, jasmine, violet everywhere */
+{const spots=[];
+ for(let i=0;i<44;i++){const [x,z]=P(i/44*Math.PI*2,46.5);spots.push([x,z]);}
+ for(let i=0;i<40;i++){const [x,z]=P(Math.random()*Math.PI*2,55+Math.random()*4);spots.push([x,z]);}
+ for(let i=0;i<40;i++){const [x,z]=P(Math.random()*Math.PI*2,113+Math.random()*4);spots.push([x,z]);}
+ for(const [cx,cz] of clusterCenters)for(let i=0;i<18;i++){const a=Math.random()*Math.PI*2;spots.push([cx+Math.cos(a)*12,cz+Math.sin(a)*12]);}
+ for(const a of [0,90,180,270])for(let i=0;i<8;i++){const [x,z]=P(a*D2R,372+i*2);spots.push([x+(Math.random()-.5)*10,z+(Math.random()-.5)*10]);}
+ for(let i=0;i<16;i++){const [x,z]=P(Math.random()*Math.PI*2,66+Math.random()*3);spots.push([x,z+0]);}
+ const N=spots.length;
+ const stems=new THREE.InstancedMesh(new THREE.CylinderGeometry(.06,.06,.9),lam(0x2f6b3c),N);
+ const blooms=new THREE.InstancedMesh(new THREE.SphereGeometry(.4,6,6),new THREE.MeshStandardMaterial({roughness:.7}),N);
+ const d=new THREE.Object3D(),col2=new THREE.Color();
+ const petals=[0xe89b2e,0xd4647a,0xece7d8,0x9a6bc9,0xc23b2e,0xe9b949];
+ spots.forEach(([x,z],i)=>{
+  d.position.set(x,.45,z);d.scale.set(1,1,1);d.updateMatrix();stems.setMatrixAt(i,d.matrix);
+  const s=.8+Math.random()*.7;d.position.set(x,1,z);d.scale.set(s,s,s);d.updateMatrix();blooms.setMatrixAt(i,d.matrix);
+  blooms.setColorAt(i,col2.setHex(petals[i%6]));});
+ if(blooms.instanceColor)blooms.instanceColor.needsUpdate=true;
+ scene.add(stems,blooms);}
+/* prayer-flag strings — festival color, always in the wind */
+const flags=[];
+function flagString(x1,z1,x2,z2,h=7){
+ for(const [px,pz] of [[x1,z1],[x2,z2]]){const p=M(new THREE.CylinderGeometry(.18,.22,h),woodMat);p.position.set(px,h/2,pz);scene.add(p);}
+ const cols=[0xc23b2e,0xe9b949,0x2e6b5a,0xece7d8,0x3e5a8a];
+ for(let i=1;i<=9;i++){const u=i/10;
+  const fx=x1+(x2-x1)*u,fz=z1+(z2-z1)*u,fy=h-Math.sin(u*Math.PI)*1.4;
+  const f=new THREE.Mesh(new THREE.PlaneGeometry(1.5,1.1),new THREE.MeshStandardMaterial({color:cols[i%5],side:THREE.DoubleSide,roughness:.9}));
+  f.position.set(fx,fy-.6,fz);f.rotation.y=Math.atan2(x2-x1,z2-z1)+Math.PI/2;
+  scene.add(f);flags.push({m:f,ph:u*5});}}
+{const [ax,az]=P(10*D2R,68),[bx,bz]=P(10*D2R,112);flagString(ax,az,bx,bz);}
+{const [ax,az]=P(95*D2R,68),[bx,bz]=P(95*D2R,112);flagString(ax,az,bx,bz);}
+{const [ax,az]=P(262*D2R,296),[bx,bz]=P(278*D2R,296);flagString(ax,az,bx,bz,8);}
+flagString(536,-9,572,-9,8);
+/* diyas — at dusk, forty lamps float out onto the water ring */
+const diyaFlames=[];
+{for(let i=0;i<40;i++){const [x,z]=P(i/40*Math.PI*2+.07,394+Math.random()*26);
+  const bowl=M(new THREE.CylinderGeometry(.55,.75,.45,8),lam(0x8a4a2e));bowl.position.set(x,.85,z);scene.add(bowl);
+  const fl=new THREE.Sprite(new THREE.SpriteMaterial({color:0xffd76a,transparent:true,opacity:0,depthWrite:false}));
+  fl.scale.set(1.1,1.6,1);fl.position.set(x,1.8,z);scene.add(fl);diyaFlames.push({s:fl,off:Math.random()*7});}}
+/* THE PRANA PULSE — the town's heartbeat, radiating from the banyan */
+function heartAmp(t){const T=4,u=(t%T)/T;
+ if(u<.12)return Math.sin(u/.12*Math.PI);
+ if(u>.18&&u<.30)return .55*Math.sin((u-.18)/.12*Math.PI);
+ return 0;}
+const pulseRings=[];
+for(let i=0;i<2;i++){
+ const pr=new THREE.Mesh(new THREE.RingGeometry(.975,1,128).rotateX(-Math.PI/2),
+  new THREE.MeshBasicMaterial({color:0xffd76a,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,side:THREE.DoubleSide}));
+ pr.position.y=.6;scene.add(pr);pulseRings.push({m:pr,delay:i*.35});}
+const heartLight=new THREE.PointLight(0xffd76a,0,220);heartLight.position.set(0,16,0);scene.add(heartLight);
+
 /* ════════════ trees ════════════ */
 {const spots=[];
  for(let i=0;i<90;i++){const th=Math.random()*Math.PI*2;const r=432+Math.random()*70;const [x,z]=P(th,r);spots.push([x,z]);}
@@ -564,7 +671,6 @@ for(let i=0;i<12;i++){
  scene.add(poles,bulbs);}
 
 /* ════════════ people — the seekers ════════════ */
-const PEOPLE=470;
 const zones=[
  {kind:'sect',r1:10,r2:44,a1:0,a2:Math.PI*2,n:28},
  {kind:'sect',r1:56,r2:114,a1:0,a2:Math.PI*2,n:92},
@@ -577,6 +683,9 @@ const zones=[
  {kind:'rect',x:580,z:0,w:75,h:60,n:24},
  {kind:'sect',r1:380,r2:388,a1:0,a2:Math.PI*2,n:30},
 ];
+const PSCALE=isMobile?0.55:1;
+zones.forEach(z=>z.n=Math.max(2,Math.round(z.n*PSCALE)));
+const PEOPLE=zones.reduce((s,z)=>s+z.n,0)+10;
 function zonePoint(z){
  if(z.kind==='rect')return new THREE.Vector2(z.x+(Math.random()-.5)*z.w,z.z+(Math.random()-.5)*z.h);
  if(z.kind==='circ'){const a=Math.random()*Math.PI*2,r=Math.sqrt(Math.random())*z.r;
@@ -797,10 +906,13 @@ insideEl.appendChild(exitBtn);
 
 /* ════════════ animate ════════════ */
 const DAY=60;
-const skyDay=new THREE.Color(0x32465c),skyNight=new THREE.Color(0x04050c);
+const skyDay=new THREE.Color(0x32465c),skyNight=new THREE.Color(0x04050c),duskSky=new THREE.Color(0xc96a42);
+const duskSun=new THREE.Color(0xff8a4a),daySun=new THREE.Color(0xffe9b0);
 const modeEl=document.getElementById('mode');
 const tSolar=document.getElementById('tSolar'),tBatt=document.getElementById('tBatt'),
       tGpu=document.getElementById('tGpu'),tOut=document.getElementById('tOut'),tDay=document.getElementById('tDay');
+const tBpm=document.getElementById('tBpm');
+const ecgCv=document.getElementById('tEcg'),ecgCtx=ecgCv?ecgCv.getContext('2d'):null;
 const clock=new THREE.Clock();
 let batt=72,lastTelem=0;
 const dummy=new THREE.Object3D();
@@ -843,8 +955,12 @@ function animate(){
  moonMesh.position.copy(moonLight.position).multiplyScalar(1.5);
  moonMesh.material.opacity=(1-day)*.95;
  hemi.intensity=.15+.75*day;
- renderer.setClearColor(skyNight.clone().lerp(skyDay,day));
- scene.fog.color.copy(skyNight.clone().lerp(skyDay,day));
+ /* dawn + dusk: the sky catches fire twice a day */
+ const duskF=Math.max(0,1-Math.abs(sunY)*4.5)*(sunY>-.2?1:0);
+ const sky=skyNight.clone().lerp(skyDay,day).lerp(duskSky,duskF*.55);
+ renderer.setClearColor(sky);
+ scene.fog.color.copy(sky);
+ sunLight.color.copy(daySun).lerp(duskSun,duskF*.85);
  starMat.opacity=(1-day)*.9;
  modeEl.textContent=day>.08?'DAY · INFERENCE':'NIGHT · TRAINING';
  modeEl.style.color=day>.08?'#e9b949':'#8fa0c8';
@@ -967,8 +1083,25 @@ function animate(){
   dp.p.position.set(INT_X+Math.cos(a)*9,5.4+Math.sin(t*.9+dp.off)*.5,dp.z0+Math.sin(a)*9);
   dp.p.lookAt(INT_X,5,dp.z0);}
 
+ /* THE PRANA PULSE — lub-dub from the banyan to the membrane */
+ const hAmp=heartAmp(t);
+ heartLight.intensity=8+hAmp*150;
+ for(const pr of pulseRings){const T=4,u=(((t-pr.delay)%T)+T)%T/T;
+  const travel=Math.min(u/.66,1);
+  const rad=46+travel*(512-46);
+  pr.m.scale.set(rad,1,rad);
+  pr.m.material.opacity=u<.66?(1-travel)*.42*(.45+.55*(1-day)):0;}
+ if(ecgCtx){ecgCtx.clearRect(0,0,190,30);ecgCtx.strokeStyle='#e9b949';ecgCtx.lineWidth=1.6;ecgCtx.beginPath();
+  for(let px=0;px<=188;px+=2){const a2=heartAmp(t-(188-px)*.021);const py=24-a2*17;
+   px===0?ecgCtx.moveTo(px,py):ecgCtx.lineTo(px,py);}
+  ecgCtx.stroke();}
+ /* diyas float out at dusk; flags never stop */
+ for(const df of diyaFlames)df.s.material.opacity=(1-day)*(.6+.4*Math.sin(t*7+df.off));
+ for(const f of flags)f.m.rotation.x=Math.sin(t*2.2+f.ph)*.22;
+
  batt=THREE.MathUtils.clamp(batt+(day>.15?dt*1.1:-dt*.85),18,100);
  if(t-lastTelem>.4){lastTelem=t;
+  if(tBpm)tBpm.textContent=(day>.08?64:52)+' bpm';
   tSolar.textContent=(22.4*day*(0.93+Math.random()*.07)).toFixed(1)+' MW';
   tBatt.textContent=Math.round(batt)+' %';
   tGpu.textContent=Math.round(day>.08?34+8*Math.random():92+6*Math.random())+' %';
