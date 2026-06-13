@@ -146,6 +146,8 @@ if (HERO){
   // hero: a real interactive toy that pitches itself — keep vitals + caption, drop the heavy chrome
   for(const id of ['title','back','hint','telem','mode','views','inside'])
     {const el=document.getElementById(id);if(el)el.style.display='none';}
+  // move the vitals bar to the bottom so it never collides with the page's headline/chip up top
+  const vb=document.getElementById('vitals'); if(vb){vb.style.top='auto';vb.style.bottom='22px';}
 }
 
 /* ── renderer / scene ── */

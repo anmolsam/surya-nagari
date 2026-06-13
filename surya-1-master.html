@@ -251,14 +251,14 @@
         <div class="spec"><div class="k">Context window</div><div class="v">2,000 seekers, never truncated</div></div>
         <div class="spec"><div class="k">Modalities</div><div class="v">soil · sunlight · flight · vitals · water · governance</div></div>
         <div class="spec"><div class="k">Inference</div><div class="v">daily — sunrise to sunset</div></div>
-        <div class="spec"><div class="k">Training</div><div class="v">nightly, on 30 MWh of stored sun</div></div>
+        <div class="spec"><div class="k">Training</div><div class="v">nightly, on 60 MWh of stored sun</div></div>
         <div class="spec"><div class="k">Compute</div><div class="v">1,024 H100-class GPUs, solar-fed</div></div>
-        <div class="spec"><div class="k">Energy</div><div class="v">14 MWp solar · zero fossil, forever</div></div>
+        <div class="spec"><div class="k">Energy</div><div class="v">22 MWp solar · zero fossil, forever</div></div>
         <div class="spec"><div class="k">Subsystem models</div><div class="v">8 — VAYU · PRANA · ANNA · URJA · VAHAN · MITRA · GRIHA · SABHA</div></div>
         <div class="spec"><div class="k">Safety</div><div class="v">5 frozen rules at layer zero · human override keys</div></div>
         <div class="spec"><div class="k">Output</div><div class="v">one token — <em>TIME</em></div></div>
         <div class="spec"><div class="k">License</div><div class="v">99-year resident lease, charter-bound</div></div>
-        <div class="spec"><div class="k">Teacher cost</div><div class="v">₹545 Cr — distills at half-cost per generation</div></div>
+        <div class="spec"><div class="k">Built for</div><div class="v"><em>₹2,690 Cr</em> — distills at half-cost per generation</div></div>
         <div class="spec"><div class="k">API</div><div class="v">Sūrya Dvār — the mart at the boundary</div></div>
         <div class="spec"><div class="k">Stop token</div><div class="v">the Ramana Rooms — where the model does not run</div></div>
       </div>
@@ -298,7 +298,7 @@
     <div class="proofs">
       <div class="proof"><div class="when">January 2026 · SECI auction</div>
         <h4>Round-the-clock sunlight became India's cheapest power</h4>
-        <p>India's first solar + 6-hour battery auction cleared at <b>₹3.12/kWh</b><a class="cite" href="#s1">[1]</a>. Ember: solar + batteries can serve 90% of national demand at ₹5.06/kWh<a class="cite" href="#s2">[2]</a>. Battery prices fell 80% in a decade<a class="cite" href="#s3">[3]</a>. The 14 MWp field + 30 MWh hall is conservative engineering now.</p></div>
+        <p>India's first solar + 6-hour battery auction cleared at <b>₹3.12/kWh</b><a class="cite" href="#s1">[1]</a>. Ember: solar + batteries can serve 90% of national demand at ₹5.06/kWh<a class="cite" href="#s2">[2]</a>. Battery prices fell 80% in a decade<a class="cite" href="#s3">[3]</a>. The 22 MWp field + 60 MWh hall is conservative engineering now.</p></div>
       <div class="proof"><div class="when">March 2026 · IndiaAI portal</div>
         <h4>GPU-hours became a commodity with a price ticker</h4>
         <p>38,000+ GPUs live under the IndiaAI Mission at discovered prices of <b>~₹115–140 per H100-hour</b><a class="cite" href="#s4">[4]</a><a class="cite" href="#s5">[5]</a>; one startup alone was allocated 4,096 H100s<a class="cite" href="#s6">[6]</a>. SŪRYA-1's surplus compute has a liquid market.</p></div>
@@ -422,7 +422,7 @@
       <div class="model"><div class="id"><span class="name">VAYU</span><span class="role">the sky</span></div><p>Flies the drone fleet now, the air-ambulance corridor from ~2028. Learns the wind over these exact acres better than any general model ever could. Trains on 255-parameter flight blackboxes<a class="cite" href="#s9">[9]</a>.</p></div>
       <div class="model"><div class="id"><span class="name">PRANA</span><span class="role">the health</span></div><p>Every resident's band, continuously — the Oura Health Radar pattern<a class="cite" href="#s13">[13]</a> trained on <i>this cohort</i> with food, air and sleep context no consumer wearable sees. Alerts propose; human doctors decide, always.</p></div>
       <div class="model"><div class="id"><span class="name">ANNA</span><span class="role">the farm</span></div><p>Satellite farm models infer soil from orbit<a class="cite" href="#s12">[12]</a>; ANNA has 4,000 probes in the actual soil and tastes its own predictions at every harvest. Runs irrigation, farm robots, sowing, the kitchen pipeline.</p></div>
-      <div class="model"><div class="id"><span class="name">URJA</span><span class="role">the energy</span></div><p>Dispatches 14 MWp and 30 MWh against a live forecast of compute demand — shifting heavy training jobs into the solar peak. The single biggest margin lever in the term sheet.</p></div>
+      <div class="model"><div class="id"><span class="name">URJA</span><span class="role">the energy</span></div><p>Dispatches 22 MWp and 60 MWh against a live forecast of compute demand — shifting heavy training jobs into the solar peak. The single biggest margin lever in the term sheet.</p></div>
       <div class="model"><div class="id"><span class="name">VAHAN</span><span class="role">the ground</span></div><p>EV pods, cargo rovers, the last fifty metres — the drone-to-rover-to-door chain proven in Gurgaon<a class="cite" href="#s9">[9]</a>, run here on private land with zero friction.</p></div>
       <div class="model"><div class="id"><span class="name">MITRA</span><span class="role">the animals</span></div><p>Gait analysis for lameness, herd social graphs, vet scheduling across the 10-acre kingdom. The least commercial model; the one that teaches the children most.</p></div>
       <div class="model"><div class="id"><span class="name">GRIHA</span><span class="role">the built</span></div><p>A live digital twin of every building, pipe and panel. Predicts failure before it happens; simulates every construction in silico before a brick moves.</p></div>
@@ -540,7 +540,7 @@
     <h2>The objective function, <em>and the API</em></h2>
     <p class="lede">SŪRYA-1 trains on one loss: <b>in every category of human need, produce more than the town consumes, every year, forever.</b> Abundance is not having a lot — abundance is when the marginal cost of a met need approaches zero. Scarcity economies ask <i>who deserves this?</i> This is the first society built to face the better question: <i>what shall we do with the rest?</i></p>
     <div class="law"><span class="tag">the ledger of abundance · audited every harvest</span>
-      Energy — 14 MWp of sun against a town that needs a fifth of it.<br>
+      Energy — 22 MWp of sun against a town that needs a quarter of it.<br>
       Food — twenty-four acres and four towers against two thousand vegetarian plates.<br>
       Care — every heartbeat watched, every doctor unhurried, no bill ever printed.<br>
       Intelligence — a thousand GPUs against a town that uses one in eight.<br>
@@ -631,12 +631,13 @@
       <tr style="font-weight:700;border-top:2px solid var(--gold-deep)"><td>Total</td><td class="r num">2,000</td><td class="r num">avg ₹2 Cr</td><td class="r num">₹4,000 Cr</td><td>the endowment of a civilisation lab</td></tr>
     </table>
     <table>
-      <tr><th>Use of the ₹4,000 Cr</th><th class="r">₹ Cr</th><th>Note</th></tr>
-      <tr><td><b>Full build-out</b> — homes, solar+GPU, battery, farms, Olympic ring, labs, skyport, water ring, mart, machines lab</td><td class="r num">~950</td><td>the expanded 200-acre scope, fully paid, zero debt required</td></tr>
-      <tr><td><b>The Endowment</b> — ring-fenced, professionally trusteed</td><td class="r num">~2,800</td><td>at a conservative 7.5%, ≈ ₹210 Cr/yr — funds food, energy, health, transport, care for all 2,000 owners <i>forever</i>, before counting a single rupee of the town's own revenue</td></tr>
-      <tr><td><b>Working capital + the Seed fund</b></td><td class="r num">~250</td><td>operations runway + the first instalment of SŪRYA-2</td></tr>
+      <tr><th>Where the ₹4,000 Cr goes</th><th class="r">₹ Cr</th><th>Note</th></tr>
+      <tr><td><b>Build the whole 200 acres</b> — full capex (itemised below)</td><td class="r num">~2,690</td><td>debt-free, at real 2026 India construction prices</td></tr>
+      <tr><td><b>The Endowment</b> — ring-fenced trust</td><td class="r num">~1,050</td><td>at ~7% throws off ≈ ₹70 Cr/yr toward the “free for life” promise — topped up by what the town earns</td></tr>
+      <tr><td><b>Working capital + reserve + Seed fund</b></td><td class="r num">~260</td><td>two-year operations runway + the first instalment of SŪRYA-2</td></tr>
+      <tr style="font-weight:700;border-top:2px solid var(--gold-deep)"><td>Total deployed</td><td class="r num">4,000</td><td>the 200 acres are promoter equity — already owned, never a cash cost</td></tr>
     </table>
-    <p>The town's earned revenue — compute, mart, APIs, machines (§08b) — then stacks <i>on top</i> of the endowment return. The bank facility of earlier drafts survives only as an optional construction bridge, retired by sale tranches; <b>the residents are the capital, the owners, and the point.</b> Wealth here is not what you extract from a place. It is what a place, fully owned by its people and run by its model, produces for them without being asked.</p>
+    <p>The honest headline: <b>the people who live here build the entire place debt-free and still leave a billion-rupee endowment behind the gate.</b> No bank is needed to build SŪRYA-1 — only, if at all, to bridge timing when construction runs ahead of sales (a short facility against pre-sales and 200 unencumbered acres, repaid by later tranches, never a permanent debt the town must serve). <b>The residents are the capital, the owners, and the point.</b></p>
 
     <div class="law"><span class="tag">the staffing doctrine · no service class</span>
       Automation first, always — if a machine can do it, a machine does it.<br>
@@ -659,18 +660,22 @@
     </table>
     <p style="font-family:var(--sans);font-size:14px;color:var(--dim)">Sensitivity: even at a brutal ₹60/GPU-hr — half today's discovered price — the mature campus clears ≈ ₹38 Cr/yr against near-zero marginal energy cost. When compute prices fall, the same watts retrain SūryaOS exports or sell to the grid under open access.</p>
 
-    <h3>Project cost — ₹545 Cr, three phases</h3>
+    <h3>What it actually costs to build — 200 acres, 2026 India prices</h3>
     <table>
       <tr><th>Head</th><th class="r">₹ Cr</th><th>Grounding</th></tr>
-      <tr><td>Solar 14 MWp + 30 MWh battery hall</td><td class="r num">92</td><td>battery all-in ~$125/kWh<a class="cite" href="#s17">[17]</a>; 2026 India EPC rates</td></tr>
-      <tr><td>GPU towers 1+2 (512+512, phased)</td><td class="r num">175</td><td>~₹33L/GPU owned-capex benchmark<a class="cite" href="#s5">[5]</a> incl. cooling, network, building</td></tr>
-      <tr><td>Living rings (~2,000 residents, tranche-built)</td><td class="r num">120</td><td>funded primarily by 99-yr lease pre-sales</td></tr>
-      <tr><td>Commons + clinic + 24/7 kitchen + Ramana Rooms</td><td class="r num">54</td><td></td></tr>
-      <tr><td>Farms, vertical towers, herb line, Animal Kingdom</td><td class="r num">34</td><td></td></tr>
-      <tr><td>Five Labs + Skyport + <b>Sūrya Dvār mart</b></td><td class="r num">34</td><td>vertiport pad ₹4 Cr; mart + cold chain + brand house ₹6 Cr</td></tr>
-      <tr><td>Mobility loop, EV/rover fleet, water systems</td><td class="r num">26</td><td></td></tr>
-      <tr><td>Contingency + pre-operative + DPR</td><td class="r num">10</td><td></td></tr>
-      <tr style="font-weight:700;border-top:2px solid var(--gold-deep)"><td>Total</td><td class="r num">545</td><td>term loan ₹140 Cr · lease pre-sales ₹325 Cr · promoter equity ₹80 Cr incl. land</td></tr>
+      <tr><td>Homes — 300 villas + 700 garden homes + 1,000 low-rise units</td><td class="r num">980</td><td>~₹3,000–4,000/sqft green construction; land excluded (promoter-owned)</td></tr>
+      <tr><td>GPU campus — 1,024 H100-class, two towers, liquid cooling, network</td><td class="r num">340</td><td>~₹33L/GPU all-in benchmark<a class="cite" href="#s5">[5]</a> incl. shell + cooling</td></tr>
+      <tr><td>The Olympic Ring — stadium &amp; track, 50m aquatics, velodrome, courts, cricket oval, akhara</td><td class="r num">280</td><td>competition-grade sports infrastructure</td></tr>
+      <tr><td>Solar 22 MWp + 60 MWh battery hall</td><td class="r num">160</td><td>~₹4 Cr/MWp + storage ~$125/kWh<a class="cite" href="#s17">[17]</a></td></tr>
+      <tr><td>Site infrastructure — roads, water &amp; sewage, power grid, drainage, landscape</td><td class="r num">150</td><td>trunk services across 190 acres</td></tr>
+      <tr><td>Ten lab biomes + equipment (battery, silicon, health rigs…)</td><td class="r num">120</td><td></td></tr>
+      <tr><td>The Commons — university, PRANA clinic, 24/7 kitchen, clubhouse, Sabha, Ramana</td><td class="r num">110</td><td>~200k sqft + medical &amp; kitchen fit-out</td></tr>
+      <tr><td>Robot hangar + robotics &amp; EV/rover fleet</td><td class="r num">90</td><td></td></tr>
+      <tr><td>Skyport · Animal Kingdom · Sūrya Dvār mart · Sūrya Works machine lab</td><td class="r num">90</td><td>30 · 20 · 18 · 22</td></tr>
+      <tr><td>Water ring — circular lake, earthworks, four bridges, treatment wetland</td><td class="r num">60</td><td></td></tr>
+      <tr><td>Farms — vertical towers, glasshouses, herb line, silos, drip</td><td class="r num">45</td><td></td></tr>
+      <tr><td>Design, approvals, pre-operative, DPR + ~7% contingency</td><td class="r num">265</td><td></td></tr>
+      <tr style="font-weight:700;border-top:2px solid var(--gold-deep)"><td>Total build</td><td class="r num">≈ 2,690</td><td>paid in full from the ₹4,000 Cr owner raise — zero construction debt required</td></tr>
     </table>
 
     <h3>Mature revenue stack (Year 6+, indicative)</h3>
@@ -683,25 +688,25 @@
       <tr><td><b>Air-ambulance node + vertiport fees</b></td><td class="r num">0–8</td><td><div class="bar"><i style="width:15%;background:#a78bda"></i></div></td><td>upside only; zero assumed before 2029</td></tr>
       <tr><td><b>Sūrya Works — Deck &amp; Diya machines (§08b)</b></td><td class="r num">0–25</td><td><div class="bar"><i style="width:25%;background:#d87093"></i></div></td><td>upside only, from Year 5; hardware margins are honest, the covenant is the brand</td></tr>
     </table>
-    <p><b>Debt service:</b> ₹140 Cr over 12 years ≈ ₹18–20 Cr/yr after moratorium. Base-case mature revenue ₹77–141 Cr/yr against ~₹40 Cr/yr opex gives an indicative <b>DSCR above 2× on the conservative edge</b> — counting zero eVTOL and zero model licensing. The "everything free for life" promise is an actuarial endowment, ring-fenced per resident: the bank is repaid by machines and a mart, never by promises.</p>
+    <p><b>Does it run forever? The opex check.</b> Running the whole town for 2,000 owners — food, healthcare, energy, water, maintenance, on-demand staff, robotics and lab operations — costs an estimated <b>~₹150 Cr/year</b> at maturity. Against that: the endowment throws off ~₹70 Cr/yr, and the town's own engines (green compute ₹38–53 Cr, mart ₹9–22 Cr, model APIs ₹5–18 Cr, machines ₹0–25 Cr) add <b>₹70–120 Cr/yr</b>. Total ₹140–190 Cr/yr against ₹150 Cr of cost — <b>it covers its own life, and the good years fund SŪRYA-2.</b> "Everything free for life" is therefore not a subsidy that runs dry; it is an endowment plus a working business, both owned by the residents. No debt sits underneath the promise.</p>
 
-    <h3>Phasing — the model earns before anyone moves in</h3>
+    <h3>Phasing — the land earns before the last home is sold</h3>
     <div class="timeline">
-      <div class="tl"><div class="yr">Phase 1 · Yr 0–2 · ₹185 Cr · loan ₹140 Cr</div><h4>Year Zero — pretraining, in public</h4>
-        <p>Solar + battery hall + GPU Tower 1 (compute revenue from month ~14) + farms planted day one + Animal Kingdom opens (the first residents are cows and dogs) + drone port + Sūrya Dvār opens with the first harvest — <b>the mart earns while the town is still empty.</b> A live public dashboard streams the town running itself: the proof that sells every lease in Phase 2.</p></div>
-      <div class="tl"><div class="yr">Phase 2 · Yr 2–4 · ₹185 Cr · funded by pre-sales + cash flow</div><h4>Fine-tuning — the first thousand</h4>
-        <p>Living rings to 1,200 residents, school, full commons, Five Labs operational with their Gate Exams, fleet at strength. Bank exposure flat; amortization begins.</p></div>
-      <div class="tl future"><div class="yr">Phase 3 · Yr 4–6 · ₹175 Cr · internally funded</div><h4>Compounding — and the first distillation</h4>
-        <p>GPU Tower 2 doubles compute. Township at 2,000. Mart brand at regional scale. SūryaOS licensed to <b>SŪRYA-2</b> — built at half the cost, per the charter. Loan retired by Year 10–12.</p></div>
+      <div class="tl"><div class="yr">Phase 1 · Yr 0–2 · ~₹1,100 Cr</div><h4>Year Zero — pretraining, in public</h4>
+        <p>Solar + battery + GPU Tower 1 (compute revenue from ~month 14) + farms planted day one + Animal Kingdom opens (the first residents are cows and dogs) + drone port + the first villa cluster + Sūrya Dvār opens with the first harvest — <b>the land earns while it is still mostly empty.</b> A live public dashboard streams the town running itself: the proof that sells the rest of the homes.</p></div>
+      <div class="tl"><div class="yr">Phase 2 · Yr 2–4 · ~₹1,600 Cr</div><h4>Fine-tuning — the first thousand owners</h4>
+        <p>Garden homes &amp; low-rise to ~1,200 residents, the full Commons, the Olympic Ring, the ten labs operational with their Gate Exams, fleet at strength — funded by Phase-1 sale tranches plus compute cash flow.</p></div>
+      <div class="tl future"><div class="yr">Phase 3 · Yr 4–6 · ~₹1,300 Cr</div><h4>Compounding — and the first distillation</h4>
+        <p>GPU Tower 2 doubles compute. Township at 2,000 owners. Mart brand at regional scale. SŪRYA-2 begins — built at half the cost, per the charter.</p></div>
     </div>
 
     <h3>The distillation law</h3>
     <div class="distill">
-      <div class="gen" style="width:190px;height:190px"><span class="g-name">SŪRYA-1 · TEACHER</span><span class="g-cost">₹545 Cr · the laboratory</span></div>
+      <div class="gen" style="width:190px;height:190px"><span class="g-name">SŪRYA-1 · TEACHER</span><span class="g-cost">₹2,690 Cr · the laboratory</span></div>
       <div class="d-arrow">──▶<span>distill</span></div>
-      <div class="gen" style="width:134px;height:134px;animation-delay:-1.5s"><span class="g-name">SŪRYA-2</span><span class="g-cost">≈ ₹270 Cr</span></div>
+      <div class="gen" style="width:134px;height:134px;animation-delay:-1.5s"><span class="g-name">SŪRYA-2</span><span class="g-cost">≈ ₹1,350 Cr</span></div>
       <div class="d-arrow">──▶<span>distill</span></div>
-      <div class="gen" style="width:92px;height:92px;animation-delay:-3s"><span class="g-name">SŪRYA-3</span><span class="g-cost">≈ ₹135 Cr</span></div>
+      <div class="gen" style="width:92px;height:92px;animation-delay:-3s"><span class="g-name">SŪRYA-3</span><span class="g-cost">≈ ₹680 Cr</span></div>
       <div class="d-arrow">──▶<span>distill</span></div>
       <div class="gen" style="width:62px;height:62px;animation-delay:-4.5s"><span class="g-name">v<i>n</i></span><span class="g-cost">a kit</span></div>
     </div>
