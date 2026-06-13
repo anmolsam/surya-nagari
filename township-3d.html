@@ -143,11 +143,10 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
 const HERO = new URLSearchParams(location.search).get('hud')==='min';
 if (HERO){
-  // hero: a real interactive toy that pitches itself — keep vitals + caption, drop the heavy chrome
-  for(const id of ['title','back','hint','telem','mode','views','inside'])
+  // hero = clean interactive showcase: the pitch shows the big stats; the persistent vitals bar
+  // lives only in the fullscreen view (where it has room). Nothing overlaps the page's chrome.
+  for(const id of ['title','back','hint','telem','mode','views','inside','vitals','info'])
     {const el=document.getElementById(id);if(el)el.style.display='none';}
-  // move the vitals bar to the bottom so it never collides with the page's headline/chip up top
-  const vb=document.getElementById('vitals'); if(vb){vb.style.top='auto';vb.style.bottom='22px';}
 }
 
 /* ── renderer / scene ── */
@@ -1087,7 +1086,7 @@ const pStat=pitchEl.querySelector('.pstat'),pTitle=pitchEl.querySelector('.ptitl
 const pitch={on:false,idx:-1,timer:0,hold:8};
 if(!HERO){const me=document.getElementById('mode');if(me)me.style.display='none';} // vitals bar shows day/night
 function setExploreUI(show){const d=show?'':'none';
- const ids = HERO ? ['vitals','info'] : ['vitals','views','inside','info','title','hint','back'];
+ const ids = HERO ? [] : ['vitals','views','inside','info','title','hint','back'];  // hero stays clean after pitch
  for(const id of ids){const el=document.getElementById(id);if(el)el.style.display=d;}}
 function pitchBeat(){
  pitch.idx++;
