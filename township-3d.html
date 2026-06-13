@@ -141,7 +141,12 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 
-const HERO = new URLSearchParams(location.search).get('hud')==='min';
+const SHOT = new URLSearchParams(location.search).get('shot')==='1';  // clean daytime capture mode
+const HERO = new URLSearchParams(location.search).get('hud')==='min' || SHOT;
+if (SHOT){
+  for(const id of ['title','back','hint','telem','mode','views','inside','vitals','info','pitch','pskip'])
+    {const el=document.getElementById(id);if(el)el.style.display='none';}
+}
 if (HERO){
   // hero = clean interactive showcase: the pitch shows the big stats; the persistent vitals bar
   // lives only in the fullscreen view (where it has room). Nothing overlaps the page's chrome.
@@ -1079,7 +1084,7 @@ const VIEWS={
  'Zen Garden':{p:[60,40,-150],t:[29,4,-80],d:'Stillness you can walk into: raked sand in concentric rings, standing stones, a koi pond, open meditation pavilions — and the morning yoga circle at the banyan. Beyond the Ramana Rooms (where the model never enters), this is the town’s daily zen.'},
  'Solar + GPU':{p:[-185,130,40],t:[-320,8,0],d:'The west wedge: 22 MWp of sun-tracking panels, two green-terraced GPU towers burning brighter at night when the town trains, and the battery mound — sleep, made of lithium.'},
  'Water Ring':{p:[210,80,330],t:[287,2,287],d:'A perfect circle of water around the human world — the residual stream made recurrent. Lotus on the surface, birds above, four bridges at the cardinal gates. It separates the quarters of animals and humans, and joins them.'},
- 'Animal Ring':{p:[230,75,330],t:[330,2,330],d:'The outermost circle belongs entirely to them: cows, dogs, birds, butterflies, the gaushala and the animal hospital — a kingdom wrapped around the whole town. The frozen weights guard the mandala. Humans visit by bridge, as guests.'},
+ 'Animal Ring':{p:[-250,46,-110],t:[-390,6,-215],d:'The outermost circle belongs entirely to them: cows, dogs, birds, butterflies, the gaushala and the animal hospital — a kingdom wrapped around the whole town. The frozen weights guard the mandala. Humans visit by bridge, as guests.'},
  'Sūrya Dvār':{p:[700,70,130],t:[590,8,0],d:'Beyond the east bridge and the gate: the timber-and-glass market hall where the mandala\'s overflow becomes provenanced product, and the ten labs\' models become APIs the world can call. The weights never leave; the gradient flows home.'},
 };
 const viewsEl=document.getElementById('views'),infoName=document.querySelector('#info .zname'),infoDesc=document.querySelector('#info .zdesc');
@@ -1219,7 +1224,7 @@ function herd(arr,dt,t){
 function animate(){
  requestAnimationFrame(animate);
  const dt=Math.min(clock.getDelta(),.05),t=clock.getElapsedTime();
- const phase=(t%DAY)/DAY*Math.PI*2;
+ const phase=SHOT?Math.PI*0.42:(t%DAY)/DAY*Math.PI*2;   // shot mode: sun frozen at bright mid-morning
  const sunY=Math.sin(phase),day=THREE.MathUtils.clamp(sunY*1.6,0,1);
  const R=1200;
  sunLight.position.set(Math.cos(phase)*R,sunY*R*.8,Math.sin(phase*.5)*250+350);
@@ -1458,7 +1463,7 @@ animate();
 document.getElementById('loading').style.opacity=0;
 setTimeout(()=>document.getElementById('loading').remove(),900);
 /* the model pitches itself the moment it loads — hero included */
-setTimeout(startPitch,1100);
+if(!SHOT) setTimeout(startPitch,1100);
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 </script>
 </body>

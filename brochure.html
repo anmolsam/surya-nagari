@@ -34,8 +34,8 @@
     background:linear-gradient(180deg, rgba(7,11,18,.25) 0%, rgba(7,11,18,.05) 40%, rgba(7,11,18,.85) 88%, var(--ink) 100%)}
   .cover .body{position:absolute;bottom:0;left:0;right:0;padding:0 20mm 22mm}
   .cover .seal{font-family:var(--mono);font-size:9pt;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-  .cover h1{font-family:var(--sans);font-size:54pt;font-weight:800;line-height:.95;letter-spacing:-.02em;
-    background:linear-gradient(100deg,var(--gold2),var(--gold) 55%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .cover h1{font-family:var(--sans);font-size:56pt;font-weight:800;line-height:.95;letter-spacing:-.02em;
+    color:#f3cf63;text-shadow:0 3px 22px rgba(0,0,0,.7),0 0 1px #f3cf63}
   .cover .sub{font-family:var(--serif);font-style:italic;font-size:18pt;color:#fff;margin-top:8px}
   .cover .tag{font-family:var(--mono);font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:18px}
   .cover .strip{position:absolute;top:20mm;left:20mm;font-family:var(--mono);font-size:8.5pt;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);
@@ -71,6 +71,11 @@
   .card p{font-size:10pt;margin:0;color:var(--soft)}
 
   .zonemap{width:100%;max-width:98mm;display:block;margin:6px auto}
+  .tour{margin:0 0 10px;break-inside:avoid;page-break-inside:avoid}
+  .tour img{width:100%;height:43mm;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+  .tour .tag{font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin:7px 0 2px}
+  .tour h4{font-size:12.5pt;color:#f3cf63;margin:0 0 3px;font-family:var(--sans)}
+  .tour p{font-size:9.3pt;margin:0;color:var(--soft);line-height:1.36}
   figcaption{font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-align:center;margin-top:8px}
 
   .big-quote{font-family:var(--serif);font-style:italic;font-size:19pt;line-height:1.3;color:#fff;text-align:center;margin:30px 10mm}
@@ -343,21 +348,80 @@
   <p>This is not a holiday. This is an ordinary Tuesday in Sūrya Nagari — and it is available, for the rest of your life, to the two thousand families who choose it first.</p>
 </div>
 
-<!-- ════════ INSIDE THE 200 ACRES ════════ -->
+<!-- ════════ WALK THE TOWNSHIP — photo tour ════════ -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Inside The Gates</span></div>
-  <div class="kick">05 · Inside The 200 Acres</div>
-  <h2>Everything a life needs,<br><em>within one gate.</em></h2>
-  <div class="cards">
-    <div class="card"><h4>The Living Rings — your home</h4><p>Six courtyard clusters: Sky Villas with plunge pools, Garden Homes, and Low-rise Residences — timber, solar-roofed, around shared meadows.</p></div>
-    <div class="card"><h4>The Commons</h4><p>University, the PRANA clinic, the 24/7 kitchen, a theater, the management tower, the Sabha hall, an amphitheatre, a fountain and the zen garden.</p></div>
-    <div class="card"><h4>The Still Point</h4><p>The great banyan, three Ramana meditation rooms, and the yoga lawn — and at the exact centre, the question the whole town orbits.</p></div>
-    <div class="card"><h4>The Lab Belt — ten APIs</h4><p>Flight, battery, health, farm, robotics, silicon, compute, sport, commerce and education — every department a model the world can call.</p></div>
-    <div class="card"><h4>The Olympic Ring</h4><p>Stadium, 50m aquatics, velodrome, courts, cricket oval, akhara and archery — Olympic-grade, open to all, every day.</p></div>
-    <div class="card"><h4>Farms &amp; Makers' Yard</h4><p>Vertical farms, glasshouses, orchards and herb beds — and five factories making soap, cloth, food, furniture and the Deck/Diya machines.</p></div>
-    <div class="card"><h4>Solar, GPU &amp; Battery</h4><p>22 MWp of sun-tracking panels, two green-terraced compute towers, and a 60 MWh battery hall — the brain and the lungs of the town.</p></div>
-    <div class="card"><h4>The Animal Ring &amp; Water Ring</h4><p>A 32-acre sanctuary of cows, dogs, birds and a pollinator forest, wrapped in a circular lake of lotus and four bridges.</p></div>
-    <div class="card"><h4>Sūrya Dvār — the gate to the world</h4><p>A market hall just outside the membrane, where the town's pure food, herbs, soap, cloth and intelligence are sold to the world at a genuine price.</p></div>
+  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
+  <div class="kick">05 · Walk The Township</div>
+  <h2>Every corner of<br>the place you'll <em>own.</em></h2>
+  <p class="lead">These are real views from the living 3D model of Sūrya Nagari — not artists' impressions. Walk it yourself, building by building, at <b>anmolsam.github.io/surya-nagari</b>.</p>
+
+  <div class="tour">
+    <img src="shots/z-living.jpeg" alt="The Living Rings">
+    <div class="tag">Your home · the context window</div>
+    <h4>The Living Rings</h4>
+    <p>Six courtyard clusters of timber, solar-roofed homes around shared meadows — Sky Villas with plunge pools, Garden Homes, and Low-rise Residences. You don't live in a block; you live on a ring, with a garden at its heart and neighbours you chose.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-commons.jpeg" alt="The Commons">
+    <div class="tag">Attention · the heart of the day</div>
+    <h4>The Commons</h4>
+    <p>The university, the PRANA clinic with its red cross and air-ambulance pad, the round glass 24/7 kitchen, a golden Theater, the management tower, the Sabha hall, an amphitheatre and a fountain — everything a community gathers around, in one ring.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-still.jpeg" alt="The Still Point">
+    <div class="tag">The stop token · the centre of everything</div>
+    <h4>The Still Point &amp; Zen Garden</h4>
+    <p>At the exact centre: a great banyan, three earthen Ramana meditation rooms the AI never enters, a raked-sand zen garden with a koi pond, and the morning yoga lawn. A whole town built around a single question — <b>who am I.</b></p>
+  </div>
+</div>
+
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
+  <div class="tour">
+    <img src="shots/z-olympic.jpeg" alt="The Olympic Ring">
+    <div class="tag">The body is also a model</div>
+    <h4>The Olympic Ring</h4>
+    <p>A competition stadium and track, a 50-metre aquatics pool, a velodrome, tennis &amp; basketball courts, a cricket oval, an akhara and archery lanes — Olympic-grade facilities most national athletes never get, free to every resident, every single day.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-labs.jpeg" alt="The Lab Belt">
+    <div class="tag">Ten labs · ten APIs to the world</div>
+    <h4>The Lab Belt</h4>
+    <p>Ten glass biome domes — each a living tree inside — for flight, battery, health, farm, robotics, silicon, compute, sport, commerce and education. Every department is a model trained on this land's real data, and every model is an income the residents own.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-farms.jpeg" alt="Farms and herbs">
+    <div class="tag">The embedding layer · food sovereignty</div>
+    <h4>Farms &amp; Herb Gardens</h4>
+    <p>Glass vertical-farm towers, glasshouse tunnels, orchards, crop arcs and a medicinal-herb farm — feeding 2,000 people ~85% from their own soil, harvest to plate in hours, with robots in the rows and the surplus sold to the world.</p>
+  </div>
+</div>
+
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
+  <div class="tour">
+    <img src="shots/z-solar.jpeg" alt="Solar field and GPU towers">
+    <div class="tag">The brainstem · sun to intelligence</div>
+    <h4>Solar Field &amp; GPU Towers</h4>
+    <p>22 MWp of sun-tracking panels, a 60 MWh battery hall, and two green-terraced compute towers holding roughly an exaflop of green intelligence. The town makes electricity at three rupees and sells it as intelligence — your home, powered and funded by the sun.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-makers.jpeg" alt="The Makers' Yard factories">
+    <div class="tag">Made here, sold to the world</div>
+    <h4>The Makers' Yard</h4>
+    <p>Five working factories — soap &amp; herbs, textiles &amp; cloth, food processing, furniture &amp; wood, and Sūrya Works (the Deck &amp; Diya machines). Everything the town needs is made on-site; the surplus rides the conveyor out through the gate as pure, provenanced product.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-animals.jpeg" alt="The Animal Ring">
+    <div class="tag">Frozen weights · 32 acres of ahimsa</div>
+    <h4>The Animal Ring</h4>
+    <p>A tenth of the whole land, wrapping the town: a gaushala where cows retire and are never used, dog meadows, a bird wetland on the water ring, and a pollinator forest. The town is guarded not by walls, but by a kingdom of beings that pay no rent.</p>
+  </div>
+  <div class="tour">
+    <img src="shots/z-mart.jpeg" alt="Sūrya Dvār — the market gate">
+    <div class="tag">The API · the gate to the world</div>
+    <h4>Sūrya Dvār</h4>
+    <p>The arched market hall just outside the membrane, where the town's pure food, herbs, soap, cloth and intelligence reach the world — at a genuine price. The world never enters the weights; it only buys the outputs, and every rupee flows home to the owners.</p>
   </div>
 </div>
 
