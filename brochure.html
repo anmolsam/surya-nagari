@@ -2,91 +2,102 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>SŪRYA NAGARI — The Living Model · Prospectus</title>
+<title>SŪRYA NAGARI — The Living Model · Detailed Prospectus</title>
 <style>
   @page { size: A4; margin: 0; }
   :root{
-    --ink:#070b12; --ink2:#0d1420; --panel:#111a28; --line:#27344a;
+    --ink:#070b12; --ink2:#0d1420; --panel:#111a28; --panel2:#0f1726; --line:#27344a;
     --paper:#f7f3e8; --dim:#aeb6c4; --soft:#cfd6e2;
-    --gold:#e9b949; --gold2:#f5d77a; --teal:#6fe3c8; --green:#69d98a; --rose:#f0916f; --violet:#a78bda;
+    --gold:#e9b949; --gold2:#f3cf63; --teal:#6fe3c8; --green:#69d98a; --rose:#f0916f; --violet:#a78bda;
     --serif:Georgia,'Times New Roman',serif;
     --sans:'Helvetica Neue',Arial,sans-serif;
     --mono:'SF Mono',Menlo,Consolas,monospace;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
   body{font-family:var(--serif);color:var(--paper);background:var(--ink);line-height:1.5;font-size:10.5pt}
-  p,li,figure,table,.card,blockquote,.theme,.kpi,.res,.ulist{break-inside:avoid;page-break-inside:avoid}
+  p,li,figure,table,.card,blockquote,.theme,.kpi,.tour,.model,.proof,.art,tr{break-inside:avoid;page-break-inside:avoid}
   h1,h2,h3,h4{break-after:avoid;page-break-after:avoid;font-family:var(--sans);font-weight:700;letter-spacing:-.01em}
   .sheet{padding:15mm 16mm;background:var(--ink)}
   .sheet + .sheet{page-break-before:always}
   .kick{font-family:var(--mono);font-size:8.5pt;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
   h2{font-size:23pt;line-height:1.08;margin-bottom:12px}
   h2 em{font-style:italic;font-weight:400;color:var(--gold);font-family:var(--serif)}
-  h3{font-size:14pt;color:var(--teal);margin:18px 0 8px}
-  p{margin-bottom:11px;color:var(--soft)}
-  p b,li b{color:#fff}
-  .lead{font-size:13pt;color:var(--dim);font-style:italic;font-family:var(--serif);margin-bottom:16px}
+  h3{font-size:13.5pt;color:var(--teal);margin:16px 0 7px}
+  p{margin-bottom:10px;color:var(--soft)}
+  p b,li b,td b{color:#fff}
+  .lead{font-size:12.5pt;color:var(--dim);font-style:italic;font-family:var(--serif);margin-bottom:14px}
+  .pagehead{font-family:var(--mono);font-size:8pt;letter-spacing:.24em;text-transform:uppercase;color:var(--line);margin-bottom:13px;border-bottom:1px solid var(--line);padding-bottom:9px;display:flex;justify-content:space-between}
 
   /* COVER */
   .cover{position:relative;height:297mm;background:var(--ink);overflow:hidden;page-break-after:always}
-  .cover img{position:absolute;top:0;left:0;width:100%;height:62%;object-fit:cover;opacity:.95}
-  .cover .scrim{position:absolute;top:0;left:0;width:100%;height:62%;
-    background:linear-gradient(180deg, rgba(7,11,18,.25) 0%, rgba(7,11,18,.05) 40%, rgba(7,11,18,.85) 88%, var(--ink) 100%)}
-  .cover .body{position:absolute;bottom:0;left:0;right:0;padding:0 20mm 22mm}
-  .cover .seal{font-family:var(--mono);font-size:9pt;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
-  .cover h1{font-family:var(--sans);font-size:56pt;font-weight:800;line-height:.95;letter-spacing:-.02em;
-    color:#f3cf63;text-shadow:0 3px 22px rgba(0,0,0,.7),0 0 1px #f3cf63}
-  .cover .sub{font-family:var(--serif);font-style:italic;font-size:18pt;color:#fff;margin-top:8px}
-  .cover .tag{font-family:var(--mono);font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);margin-top:18px}
-  .cover .strip{position:absolute;top:20mm;left:20mm;font-family:var(--mono);font-size:8.5pt;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);
-    border:1px solid rgba(233,185,73,.5);padding:6px 14px;border-radius:99px;background:rgba(7,11,18,.45)}
+  .cover img{position:absolute;top:0;left:0;width:100%;height:60%;object-fit:cover;opacity:.95}
+  .cover .scrim{position:absolute;top:0;left:0;width:100%;height:62%;background:linear-gradient(180deg, rgba(7,11,18,.25) 0%, rgba(7,11,18,.05) 38%, rgba(7,11,18,.86) 88%, var(--ink) 100%)}
+  .cover .body{position:absolute;bottom:0;left:0;right:0;padding:0 20mm 24mm}
+  .cover .seal{font-family:var(--mono);font-size:9pt;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:9px}
+  .cover h1{font-family:var(--sans);font-size:56pt;font-weight:800;line-height:.95;letter-spacing:-.02em;color:#f3cf63;text-shadow:0 3px 22px rgba(0,0,0,.7),0 0 1px #f3cf63}
+  .cover .sub{font-family:var(--serif);font-style:italic;font-size:17pt;color:#fff;margin-top:8px}
+  .cover .tag{font-family:var(--mono);font-size:9pt;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);margin-top:16px}
+  .cover .strip{position:absolute;top:20mm;left:20mm;font-family:var(--mono);font-size:8.5pt;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(233,185,73,.5);padding:6px 14px;border-radius:99px;background:rgba(7,11,18,.45)}
 
-  blockquote{border-left:2px solid var(--gold);padding:4px 0 4px 18px;margin:16px 0;font-style:italic;font-size:13pt;color:#fff}
-  .sig{font-family:var(--serif);font-style:italic;color:var(--gold);margin-top:14px;font-size:12pt}
+  blockquote{border-left:2px solid var(--gold);padding:4px 0 4px 18px;margin:14px 0;font-style:italic;font-size:12.5pt;color:#fff}
+  .sig{font-family:var(--serif);font-style:italic;color:var(--gold);margin-top:13px;font-size:11.5pt}
 
-  /* THEMES (100 reasons) */
+  table{width:100%;border-collapse:collapse;margin:11px 0;font-family:var(--sans);font-size:9.6pt}
+  th{text-align:left;font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding:7px 7px;font-weight:600}
+  td{padding:8px 7px;border-bottom:1px solid var(--line);color:var(--soft);vertical-align:top}
+  td.r,th.r{text-align:right}
+
+  .kpis{display:flex;gap:9px;margin:13px 0}
+  .kpi{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:13px;text-align:center}
+  .kpi .v{font-family:var(--mono);font-size:17pt;color:var(--gold);font-weight:700}
+  .kpi .l{font-family:var(--mono);font-size:7.5pt;letter-spacing:.1em;text-transform:uppercase;color:var(--dim);margin-top:5px}
+
+  .zonemap{width:100%;max-width:96mm;display:block;margin:6px auto}
+  figcaption{font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-align:center;margin-top:7px}
+
+  /* photo tour */
+  .tour{margin:0 0 10px}
+  .tour img{width:100%;height:43mm;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
+  .tour .tag{font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin:7px 0 2px}
+  .tour h4{font-size:12.5pt;color:#f3cf63;margin:0 0 3px;font-family:var(--sans)}
+  .tour p{font-size:9.3pt;margin:0;color:var(--soft);line-height:1.36}
+
+  /* doctrine flywheel */
+  .flywheel{font-family:var(--mono);font-size:8.5pt;line-height:1.7;color:var(--green);background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin:12px 0;white-space:pre-wrap}
+  .flywheel b{color:var(--gold)}
+
+  /* models / cards */
+  .model{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--teal);border-radius:6px;padding:10px 13px;margin:0 0 8px}
+  .model .nm{font-family:var(--mono);font-size:11pt;color:var(--gold);font-weight:700;letter-spacing:.04em}
+  .model .role{font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);margin-left:6px}
+  .model p{font-size:9.4pt;margin:4px 0 0;color:var(--soft)}
+
+  .proof{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--green);border-radius:8px;padding:12px 15px;margin:0 0 9px}
+  .proof .when{font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:3px}
+  .proof h4{font-size:11.5pt;color:#fff;margin-bottom:4px}
+  .proof p{font-size:9.4pt;margin:0;color:var(--soft)}
+
   .theme{background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:8px;padding:12px 15px;margin:0 0 9px}
   .theme h4{font-size:11.5pt;color:#fff;margin-bottom:2px}
   .theme .n{font-family:var(--mono);font-size:7.5pt;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:7px}
   .theme ol{list-style:none;counter-reset:r;margin:0}
   .theme li{counter-increment:r;position:relative;padding:2px 0 2px 24px;font-size:9.3pt;color:var(--soft);line-height:1.32}
-  .theme li::before{content:counter(r);position:absolute;left:0;top:2px;font-family:var(--mono);font-size:7pt;color:var(--gold);
-    width:15px;height:15px;line-height:15px;text-align:center;border:1px solid var(--gold);border-radius:50%}
-  .grid2{column-count:1}
+  .theme li::before{content:counter(r);position:absolute;left:0;top:2px;font-family:var(--mono);font-size:7pt;color:var(--gold);width:15px;height:15px;line-height:15px;text-align:center;border:1px solid var(--gold);border-radius:50%}
 
-  table{width:100%;border-collapse:collapse;margin:12px 0;font-family:var(--sans);font-size:10pt}
-  th{text-align:left;font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding:8px 8px;font-weight:600}
-  td{padding:9px 8px;border-bottom:1px solid var(--line);color:var(--soft);vertical-align:top}
-  td b{color:#fff}
-  td.r,th.r{text-align:right}
+  .art{margin:0 0 9px}
+  .art .n{font-family:var(--mono);font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .art h4{font-size:11.5pt;color:#fff;margin:1px 0 3px}
+  .art p{font-size:9.4pt;margin:0;color:var(--soft)}
 
-  .kpis{display:flex;gap:10px;margin:14px 0}
-  .kpi{flex:1;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px;text-align:center}
-  .kpi .v{font-family:var(--mono);font-size:18pt;color:var(--gold);font-weight:700}
-  .kpi .l{font-family:var(--mono);font-size:7.5pt;letter-spacing:.12em;text-transform:uppercase;color:var(--dim);margin-top:5px}
-
-  .cards{display:block}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:13px 16px;margin:0 0 10px}
-  .card h4{font-size:11.5pt;color:var(--teal);margin-bottom:4px}
-  .card p{font-size:10pt;margin:0;color:var(--soft)}
-
-  .zonemap{width:100%;max-width:98mm;display:block;margin:6px auto}
-  .tour{margin:0 0 10px;break-inside:avoid;page-break-inside:avoid}
-  .tour img{width:100%;height:43mm;object-fit:cover;border-radius:8px;border:1px solid var(--line);display:block}
-  .tour .tag{font-family:var(--mono);font-size:7pt;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin:7px 0 2px}
-  .tour h4{font-size:12.5pt;color:#f3cf63;margin:0 0 3px;font-family:var(--sans)}
-  .tour p{font-size:9.3pt;margin:0;color:var(--soft);line-height:1.36}
-  figcaption{font-family:var(--mono);font-size:8pt;letter-spacing:.14em;text-transform:uppercase;color:var(--dim);text-align:center;margin-top:8px}
-
-  .big-quote{font-family:var(--serif);font-style:italic;font-size:19pt;line-height:1.3;color:#fff;text-align:center;margin:30px 10mm}
+  .big-quote{font-family:var(--serif);font-style:italic;font-size:18pt;line-height:1.3;color:#fff;text-align:center;margin:26px 8mm}
   .big-quote b{color:var(--gold);font-style:normal}
 
-  .foot{font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--line);text-align:center;margin-top:20px}
-  .pagehead{font-family:var(--mono);font-size:8pt;letter-spacing:.24em;text-transform:uppercase;color:var(--line);margin-bottom:14px;border-bottom:1px solid var(--line);padding-bottom:10px;display:flex;justify-content:space-between}
-
-  .cta{background:linear-gradient(150deg,var(--panel),var(--ink2));border:1px solid var(--gold);border-radius:12px;padding:26px;margin-top:8px;text-align:center}
-  .cta h3{color:var(--gold);font-size:16pt;margin:0 0 8px}
-  .cta .price{font-family:var(--mono);font-size:13pt;color:#fff;margin:10px 0}
+  .cta{background:linear-gradient(150deg,var(--panel),var(--ink2));border:1px solid var(--gold);border-radius:12px;padding:24px;margin-top:8px;text-align:center}
+  .cta h3{color:var(--gold);font-size:15pt;margin:0 0 8px}
+  .cta .price{font-family:var(--mono);font-size:12pt;color:#fff;margin:9px 0}
+  .src{font-family:var(--sans);font-size:8.6pt;color:var(--dim);line-height:1.45}
+  .src b{color:var(--soft)}
+  .foot{font-family:var(--mono);font-size:7.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--line);text-align:center;margin-top:18px}
 </style>
 </head>
 <body>
@@ -100,49 +111,47 @@
     <div class="seal">The world's first living-model township</div>
     <h1>SŪRYA<br>NAGARI</h1>
     <div class="sub">A place that thinks by day, dreams by night, and exists entirely to let you flourish.</div>
-    <div class="tag">Prospectus for founding resident-owners · 2,000 homes · owned, not rented</div>
+    <div class="tag">Detailed prospectus for founding resident-owners · 2,000 homes · owned, not rented</div>
   </div>
 </div>
 
-<!-- ════════ THE INVITATION ════════ -->
+<!-- 01 INVITATION -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>The Invitation</span></div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>01 · The Invitation</span></div>
   <div class="kick">01 · The Invitation</div>
-  <h2>You were not meant<br>to spend your life <em>on logistics.</em></h2>
-  <p class="lead">Commuting. Queuing. Cooking under pressure. Chasing bills, repairs, and the next errand. An ordinary life spends thirty hours a week on the machinery of living — and almost none on actually living.</p>
-  <p>Sūrya Nagari is built to give those hours back. It is a 200-acre township in India where an artificial intelligence quietly runs everything that wastes a human being — the farms, the solar grid, the kitchens, the deliveries, the health monitoring, the governance — so that the two thousand people who live here are free to do the only things that matter: to think, create, raise families, build, play, heal, and seek.</p>
-  <p>We do not call them residents. We call them <b>seekers</b> — of science, of sport, of stillness, of a better way to live. And they do not rent or buy a flat. They <b>co-own a living institution</b> whose farms, solar fields, compute towers, factories and laboratories produce, every single day, more than the town consumes — and sell the surplus to the world.</p>
+  <h2>You were not meant to spend<br>your life <em>on logistics.</em></h2>
+  <p class="lead">Commuting. Queuing. Cooking under pressure. Chasing bills, repairs and the next errand. An ordinary life spends thirty hours a week on the machinery of living — and almost none on actually living.</p>
+  <p>Sūrya Nagari is built to give those hours back. It is a 200-acre township in India where an artificial intelligence quietly runs everything that wastes a human being — the farms, the solar grid, the kitchens, the deliveries, the health monitoring, the governance, the factories — so that the two thousand people who live here are free to do the only things that matter: to think, create, raise families, build, play, heal and seek.</p>
+  <p>We do not call them residents. We call them <b>seekers</b>. And they do not rent or buy a flat — they <b>co-own a living institution</b> whose farms, solar fields, compute towers, factories and ten laboratories produce, every single day, more than the town consumes, and sell the surplus to the world.</p>
   <blockquote>This is not a smart city, and it is not a retreat. It is a university of the committed, a sanctuary for families, and the first working answer to the question every economy on Earth is about to ask: what do people do when the machines do the rest?</blockquote>
-  <p>This document is your invitation to own a home inside it. On the pages that follow you will find what it is, what it gives you, what it costs, and one hundred specific reasons why a place in Sūrya Nagari may be the best decision your family ever makes.</p>
+  <p>This document carries the full plan — what it is, how it thinks, what runs it, what is built on the 200 acres, what it costs, how you own it, and one hundred specific reasons why a place here may be the best decision your family ever makes. Everything in it can be walked, live and interactive, at <b>anmolsam.github.io/surya-nagari</b>.</p>
   <div class="sig">— The founders of Sūrya Nagari</div>
 </div>
 
-<!-- ════════ WHAT IT IS ════════ -->
+<!-- 02 WHAT IT IS -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>What It Is</span></div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>02 · What It Is</span></div>
   <div class="kick">02 · What It Is</div>
   <h2>A town shaped like<br>a <em>mandala.</em></h2>
-  <p class="lead">Two hundred acres arranged in sacred concentric rings — animals guarding the outermost circle, a ring of water between their kingdom and ours, and at the exact centre, where every other city puts a monument, this one puts a question: <b>WHO AM I.</b></p>
+  <p class="lead">Two hundred acres in sacred concentric rings — animals guarding the outermost circle, a ring of water between their kingdom and ours, ten lab-APIs orbiting the homes, and at the exact centre, where every other city puts a monument, this one puts a question: <b>WHO AM I.</b></p>
   <figure>
-    <svg class="zonemap" viewBox="0 0 400 400" role="img" aria-label="The mandala plan of Sūrya Nagari">
+    <svg class="zonemap" viewBox="0 0 400 400" role="img" aria-label="The mandala plan">
       <defs><radialGradient id="g" cx="50%" cy="50%"><stop offset="0%" stop-color="#1a2740"/><stop offset="100%" stop-color="#0d1420"/></radialGradient></defs>
       <circle cx="200" cy="200" r="196" fill="url(#g)" stroke="#27344a"/>
       <circle cx="200" cy="200" r="196" fill="none" stroke="#69d98a" stroke-width="10" opacity=".5"/>
       <circle cx="200" cy="200" r="170" fill="none" stroke="#6fe3c8" stroke-width="8" opacity=".55"/>
-      <circle cx="200" cy="200" r="150" fill="none" stroke="#27344a" stroke-width="1"/>
-      <circle cx="200" cy="200" r="120" fill="none" stroke="#a78bda" stroke-width="1" stroke-dasharray="3 4"/>
-      <circle cx="200" cy="200" r="92" fill="none" stroke="#f0916f" stroke-width="1"/>
-      <circle cx="200" cy="200" r="60" fill="none" stroke="#e9b949" stroke-width="1"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#27344a"/>
+      <circle cx="200" cy="200" r="120" fill="none" stroke="#a78bda" stroke-dasharray="3 4"/>
+      <circle cx="200" cy="200" r="92" fill="none" stroke="#f0916f"/>
+      <circle cx="200" cy="200" r="60" fill="none" stroke="#e9b949"/>
       <circle cx="200" cy="200" r="22" fill="#e9b949" opacity=".9"/>
       <text x="200" y="203" text-anchor="middle" font-family="monospace" font-size="7" fill="#0d1420">WHO AM I</text>
       <g font-family="monospace" font-size="7.5" fill="#aeb6c4" text-anchor="middle">
-        <text x="200" y="20" fill="#69d98a">ANIMAL RING</text>
-        <text x="200" y="38" fill="#6fe3c8">WATER RING</text>
+        <text x="200" y="20" fill="#69d98a">ANIMAL RING</text><text x="200" y="38" fill="#6fe3c8">WATER RING</text>
         <text x="200" y="60" fill="#f25c3a">OLYMPIC · FARMS · SOLAR+GPU · INDUSTRY</text>
         <text x="200" y="92" fill="#6fe3c8">THE LAB BELT — 10 APIs</text>
         <text x="200" y="120" fill="#f0916f">LIVING RINGS — your home</text>
-        <text x="200" y="150" fill="#e9b949">THE COMMONS</text>
-      </g>
+        <text x="200" y="150" fill="#e9b949">THE COMMONS</text></g>
     </svg>
     <figcaption>The plan — read from the outside in, the way the town thinks</figcaption>
   </figure>
@@ -155,280 +164,180 @@
   </div>
 </div>
 
-<!-- ════════ 100 REASONS — intro ════════ -->
+<!-- 03 THE DOCTRINE -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>100 Reasons</span></div>
-  <div class="kick">03 · One Hundred Reasons</div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>03 · The Doctrine</span></div>
+  <div class="kick">03 · The Doctrine</div>
+  <h2>Everything here<br><em>is a model.</em></h2>
+  <p class="lead">Other townships buy software and get worse every year as licences lapse and systems rot. Sūrya Nagari grows models — and gets better every year, because its operating system is trained on the only dataset that matters: itself.</p>
+  <p><b>The land is the dataset. The town is the eval. The residents are the feedback.</b> Every month, every department's model is retrained on what the land actually did — and the same hardware runs measurably better. The asset appreciates by learning.</p>
+  <div class="flywheel"><b>THE SŪRYA FLYWHEEL</b>  ·  one loop, every day
+real land data ──▶ train (on our own solar GPUs) ──▶ deploy to the edge
+   soil probes, health bands, flight logs, battery cycles, harvest weights
+   ──▶ act on the land (irrigate, fly, feed, heal, dispatch) ──▶ new data ──┐
+   └────────────────────────────────────────────────────────────────────────┘</div>
+  <h3>The Spine, and the Bloom</h3>
+  <p>Like any great animal, the town has a <b>spine that never changes</b> — five rules burned into a sealed, read-only core no retraining can touch: <i>ahimsa; sunlight only; every basic need met; your data is yours; humans hold the keys.</i> And a <b>bloom that never stops learning</b> — farm yields, energy routing, menus, transport, clinic scheduling, all improving continuously. The spine gives certainty; the bloom gives compounding returns.</p>
+  <blockquote>Day is inference — the town acts. Night is training — on stored sunlight it consolidates the day into its weights. It dreams in gradient descent, and wakes up wiser, because of what you did yesterday.</blockquote>
+</div>
+
+<!-- 04 SUryaOS — 8 models -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>04 · SūryaOS</span></div>
+  <div class="kick">04 · SūryaOS — The Eight Models</div>
+  <h2>Eight minds,<br><em>one nightly loop.</em></h2>
+  <p class="lead">The town's operating system is eight domain models, each trained on the township's own telemetry, each shipping a distilled version that runs locally even if every uplink fails.</p>
+  <div class="model"><span class="nm">VAYU</span><span class="role">the sky</span><p>Flies the drone fleet now and the air-ambulance corridor from 2028 — learning the wind over these exact acres better than any general model could.</p></div>
+  <div class="model"><span class="nm">PRANA</span><span class="role">the health</span><p>Reads every resident's wellness band continuously, catching trouble years before symptoms; it proposes, a human doctor decides — always.</p></div>
+  <div class="model"><span class="nm">ANNA</span><span class="role">the farm</span><p>Runs irrigation, farm robots, sowing and the kitchen pipeline — with 4,000 soil probes giving it the ground truth satellite models never have.</p></div>
+  <div class="model"><span class="nm">URJA</span><span class="role">the energy</span><p>Dispatches 22 MWp of sun and 60 MWh of batteries against a live forecast of compute demand — the single biggest margin lever in the town.</p></div>
+  <div class="model"><span class="nm">VAHAN</span><span class="role">the ground</span><p>Runs the EV pods, cargo rovers and the last-fifty-metres delivery — drone to rover to your door.</p></div>
+  <div class="model"><span class="nm">MITRA</span><span class="role">the animals</span><p>Watches over the 10-acre animal kingdom — gait, herd health, feeding — the least commercial model and the one that teaches the children most.</p></div>
+  <div class="model"><span class="nm">GRIHA</span><span class="role">the built</span><p>A live digital twin of every building, pipe and panel; predicts failure before it happens and simulates every new construction before a brick moves.</p></div>
+  <div class="model"><span class="nm">SABHA</span><span class="role">the governance</span><p>Drafts budgets, publishes the receipts of everything the other seven did and why. Proposes, never decides — the council holds the only keys.</p></div>
+</div>
+
+<!-- 05 WHY NOW -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>05 · Why 2026</span></div>
+  <div class="kick">05 · Why 2026 — The Evidence</div>
+  <h2>Built on what is real<br><em>today,</em> not on hope.</h2>
+  <p class="lead">Four independent technology curves crossed their thresholds in India in the last eighteen months — in public record. Sūrya Nagari is not a bet on any of them; it is the first place to compound all four on one piece of land.</p>
+  <div class="proof"><div class="when">January 2026 · SECI auction</div><h4>Round-the-clock sunlight is now India's cheapest power</h4><p>India's first solar + 6-hour-battery auction cleared at <b>₹3.12/kWh</b>. Battery prices fell ~80% in a decade. Our 22 MWp field + 60 MWh hall is conservative engineering now, not a brave bet.</p></div>
+  <div class="proof"><div class="when">March 2026 · IndiaAI Mission</div><h4>Green compute became a commodity with a published price</h4><p>38,000+ GPUs are live under the IndiaAI Mission at a discovered <b>₹115–140 per H100-hour</b>; one startup alone was allocated 4,096 H100s. The product we sell has a liquid market and a price ticker.</p></div>
+  <div class="proof"><div class="when">May 2026 · DGCA &amp; the low sky</div><h4>The sky opened for delivery — and for flight</h4><p>Six BVLOS drone corridors are operational; India crossed <b>2 million drone deliveries</b>. In March 2026 the DGCA issued the country's first airworthiness framework for electric air-taxis (eVTOL) up to 5,700 kg.</p></div>
+  <div class="proof"><div class="when">2025–26 · models &amp; the pure-food market</div><h4>Both halves of the model are proven</h4><p>IndiaAI funded a 27-billion-parameter farm model; consumer rings already predict illness from biometrics. Meanwhile India's organic market passed <b>$2.3B, growing ~20%/yr</b>, with buyers paying 30–150% premiums for purity they cannot verify — purity this town makes a public record.</p></div>
+</div>
+
+<!-- 06 WALK THE TOWNSHIP — photo tour -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>06 · Walk The Township</span></div>
+  <div class="kick">06 · Walk The Township</div>
+  <h2>Every corner of<br>the place you'll <em>own.</em></h2>
+  <p class="lead">Real views from the living 3D model — not artists' impressions. Walk it yourself, building by building, at <b>anmolsam.github.io/surya-nagari</b>.</p>
+  <div class="tour"><img src="shots/z-living.jpeg" alt="Living Rings"><div class="tag">Your home · the context window</div><h4>The Living Rings</h4><p>Six courtyard clusters of timber, solar-roofed homes around shared meadows — Sky Villas with plunge pools, Garden Homes, and Low-rise Residences. You don't live in a block; you live on a ring, with a garden at its heart.</p></div>
+  <div class="tour"><img src="shots/z-commons.jpeg" alt="The Commons"><div class="tag">Attention · the heart of the day</div><h4>The Commons</h4><p>The university, the PRANA clinic with its red cross and air-ambulance pad, the round glass 24/7 kitchen, a golden Theater, the management tower, the Sabha hall, an amphitheatre and a fountain.</p></div>
+  <div class="tour"><img src="shots/z-still.jpeg" alt="The Still Point"><div class="tag">The stop token · the centre</div><h4>The Still Point &amp; Zen Garden</h4><p>A great banyan, three earthen Ramana meditation rooms the AI never enters, a raked-sand zen garden with a koi pond, and the morning yoga lawn. A whole town built around one question — who am I.</p></div>
+</div>
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>06 · Walk The Township</span></div>
+  <div class="tour"><img src="shots/z-olympic.jpeg" alt="Olympic Ring"><div class="tag">The body is also a model</div><h4>The Olympic Ring</h4><p>A competition stadium and track, a 50-metre aquatics pool, a velodrome, courts, a cricket oval, an akhara and archery lanes — facilities most national athletes never get, free to every resident, every day.</p></div>
+  <div class="tour"><img src="shots/z-labs.jpeg" alt="Lab Belt"><div class="tag">Ten labs · ten APIs to the world</div><h4>The Lab Belt</h4><p>Ten glass biome domes — flight, battery, health, farm, robotics, silicon, compute, sport, commerce and education. Every department is a model trained on this land's real data, and every model is an income the residents own.</p></div>
+  <div class="tour"><img src="shots/z-farms.jpeg" alt="Farms"><div class="tag">The embedding layer · food sovereignty</div><h4>Farms &amp; Herb Gardens</h4><p>Glass vertical-farm towers, glasshouse tunnels, orchards and a medicinal-herb farm — feeding 2,000 people ~85% from their own soil, harvest to plate in hours, with robots in the rows.</p></div>
+</div>
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>06 · Walk The Township</span></div>
+  <div class="tour"><img src="shots/z-solar.jpeg" alt="Solar and GPU"><div class="tag">The brainstem · sun to intelligence</div><h4>Solar Field &amp; GPU Towers</h4><p>22 MWp of sun-tracking panels, a 60 MWh battery hall, and two green-terraced compute towers holding roughly an exaflop of green intelligence. The town makes electricity at three rupees and sells it as intelligence.</p></div>
+  <div class="tour"><img src="shots/z-makers.jpeg" alt="Makers' Yard"><div class="tag">Made here, sold to the world</div><h4>The Makers' Yard</h4><p>Five working factories — soap &amp; herbs, textiles &amp; cloth, food processing, furniture &amp; wood, and Sūrya Works (the Deck &amp; Diya machines). The town makes what it needs and sells the surplus through the gate.</p></div>
+  <div class="tour"><img src="shots/z-animals.jpeg" alt="Animal Ring"><div class="tag">Frozen weights · 32 acres of ahimsa</div><h4>The Animal Ring</h4><p>A tenth of the land, wrapping the town: a gaushala where cows retire and are never used, dog meadows, a bird wetland, and a pollinator forest. The town is guarded not by walls, but by a kingdom that pays no rent.</p></div>
+  <div class="tour"><img src="shots/z-mart.jpeg" alt="Sūrya Dvār"><div class="tag">The API · the gate to the world</div><h4>Sūrya Dvār</h4><p>The arched market hall just outside the membrane, where the town's pure food, herbs, soap, cloth and intelligence reach the world at a genuine price. The world never enters the weights; it buys the outputs, and every rupee flows home.</p></div>
+</div>
+
+<!-- 07 THE SKY LAYER -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>07 · The Sky</span></div>
+  <div class="kick">07 · The Sky Layer</div>
+  <h2>Flying machines, on<br>India's <em>real timeline.</em></h2>
+  <p class="lead">Three honest steps, each gated on a public regulatory or certification milestone — so nothing here depends on a hope.</p>
+  <div class="proof"><div class="when">2026–27 · operating from day one</div><h4>Drone logistics</h4><p>Ten-kilogram cargo drones run kitchen deliveries, farm sensing and medicine across the campus and a 25-km rural radius — the exact stack that already moves 200,000 packages a month in Gurgaon, with rover hand-off at every ring.</p></div>
+  <div class="proof"><div class="when">2027–28 · gated on certification</div><h4>The flying ambulance</h4><p>A township whose health model sees a cardiac event developing is the ideal air-ambulance base. Golden hour becomes golden ten minutes. India's first electric-aircraft design approval is already held; trials begin late 2027.</p></div>
+  <div class="proof"><div class="when">2028–30 · gated on type certification</div><h4>Passenger eVTOL</h4><p>The vertiport is built to the DGCA's 2026 spec from Phase 1 at a marginal cost. When the first Indian air-taxi is certified, Sūrya Nagari is on the route map the week it flies. Until then, the pad earns its keep as the drone port — no revenue assumes passenger flight before 2029.</p></div>
+</div>
+
+<!-- 08 ONE HUNDRED REASONS -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>08 · 100 Reasons</span></div>
+  <div class="kick">08 · One Hundred Reasons</div>
   <h2>One hundred reasons<br>to <em>live here.</em></h2>
-  <p class="lead">Most homes give you four walls and a view. This one gives you abundance, health, ownership, family, stillness, sport, intelligence, nature, and a legacy that outlives you. Here are one hundred specific reasons — ten in each.</p>
-
-  <div class="theme"><div class="n">I · Abundance — everything provided</div>
-    <h4>You will never count the cost of a basic need again</h4>
-    <ol>
-      <li>Food, water, energy, healthcare, transport — included in your ownership, for life.</li>
-      <li>Never pay a utility bill: 22 MWp of solar powers your home, free, forever.</li>
-      <li>A 24/7 community kitchen — real food at 3 a.m. or noon, you never cook under pressure.</li>
-      <li>No maintenance bills — you own the infrastructure that maintains itself.</li>
-      <li>Automation does the chores; roughly 30 hours a week of logistics, returned to you.</li>
-      <li>Your costs don't rise with inflation — the town earns its own keep.</li>
-      <li>A ring-fenced ₹1,050-crore endowment underwrites your life here.</li>
-      <li>The marginal cost of a met need approaches zero — that is what abundance means.</li>
-      <li>No price-gouging, no scarcity games — the whole estate exists to provide for you.</li>
-      <li>Abundance by design, not by luck.</li>
-    </ol>
-  </div>
-
-  <div class="theme"><div class="n">II · Ownership &amp; wealth</div>
-    <h4>You don't buy a flat — you co-own a productive 200-acre estate</h4>
-    <ol>
-      <li>Your home is a share in solar farms, compute towers, a mart, factories and ten lab-APIs.</li>
-      <li>Wealth that compounds: the town's models and brand grow in value every year.</li>
-      <li>No landlord, no builder skimming maintenance — the residents are the owners.</li>
-      <li>A 99-year lease, per person, fully transferable to your family.</li>
-      <li>Three ways to own — Sky Villa, Garden Home, or Low-rise Residence.</li>
-      <li>A debt-free asset: the entire town is built without a bank loan.</li>
-      <li>Scarcity value: the first township of its kind in the world.</li>
-      <li>An income-producing home, not a depreciating one.</li>
-      <li>Your equity is in the future, not the past.</li>
-      <li>You become an owner of an institution, not a unit in a block.</li>
-    </ol>
-  </div>
+  <p class="lead">Most homes give you four walls and a view. This one gives you abundance, ownership, health, food, family, stillness, sport, intelligence, nature and a legacy that outlives you. Ten in each.</p>
+  <div class="theme"><div class="n">I · Abundance — everything provided</div><h4>You will never count the cost of a basic need again</h4><ol><li>Food, water, energy, healthcare and transport — included in your ownership, for life.</li><li>Never pay a utility bill: 22 MWp of solar powers your home, free, forever.</li><li>A 24/7 community kitchen — real food at 3 a.m. or noon; you never cook under pressure.</li><li>No maintenance bills — you own the infrastructure that maintains itself.</li><li>Automation does the chores; ~30 hours a week of logistics, returned to you.</li><li>Your costs don't rise with inflation — the town earns its own keep.</li><li>A ring-fenced ₹1,050-crore endowment underwrites your life here.</li><li>The marginal cost of a met need approaches zero — that is what abundance means.</li><li>No price-gouging, no scarcity games — the estate exists to provide for you.</li><li>Abundance by design, not by luck.</li></ol></div>
+  <div class="theme"><div class="n">II · Ownership &amp; wealth</div><h4>You don't buy a flat — you co-own a productive 200-acre estate</h4><ol><li>Your home is a share in solar farms, compute towers, a mart, factories and ten lab-APIs.</li><li>Wealth that compounds: the town's models and brand grow in value every year.</li><li>No landlord, no builder skimming maintenance — the residents are the owners.</li><li>A 99-year lease, per person, fully transferable to your family.</li><li>Three ways to own — Sky Villa, Garden Home, or Low-rise Residence.</li><li>A debt-free asset: the entire town is built without a bank loan.</li><li>Scarcity value: the first township of its kind in the world.</li><li>An income-producing home, not a depreciating one.</li><li>Your equity is in the future, not the past.</li><li>You become an owner of an institution, not a unit in a block.</li></ol></div>
 </div>
-
-<!-- 100 reasons continued -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>100 Reasons</span></div>
-  <div class="theme"><div class="n">III · Health &amp; longevity</div>
-    <h4>The healthiest 200 acres in India, by design</h4>
-    <ol>
-      <li>Every heartbeat watched by PRANA, your continuous-care health model.</li>
-      <li>A full clinic and doctors on campus, for life — never billed.</li>
-      <li>An air-ambulance node: emergencies answered in minutes, not hours.</li>
-      <li>Illness caught before symptoms — predictive, preventive medicine.</li>
-      <li>Clean air, clean water, organic food — the true foundations of a long life.</li>
-      <li>A wellness band that understands your body and gently guides it.</li>
-      <li>Daily movement built into the town — you walk, swim and cycle without trying.</li>
-      <li>Mental health honoured: zen gardens, silence, and time.</li>
-      <li>Your private health data advances the science of living longer — with consent.</li>
-      <li>A place engineered to add years to your life, and life to your years.</li>
-    </ol>
-  </div>
-  <div class="theme"><div class="n">IV · Food &amp; purity</div>
-    <h4>You will eat better here than almost anyone alive</h4>
-    <ol>
-      <li>Vegetables on your plate within hours of harvest.</li>
-      <li>100% traceable food — scan any item and see the field it grew in.</li>
-      <li>~85% grown on-site; no mystery supply chain.</li>
-      <li>A medicinal-herb farm feeding both the clinic and your kitchen.</li>
-      <li>Pure vegetarian, sattvic-leaning — eating the way the body thrives.</li>
-      <li>No pesticides, no adulteration — purity is a public record here.</li>
-      <li>Dairy and produce from animals treated as family, never as machines.</li>
-      <li>Genuine price at the mart — health is not a luxury here.</li>
-      <li>Five on-site factories turn the harvest into soap, oils, and staples.</li>
-      <li>Food you can finally, completely trust.</li>
-    </ol>
-  </div>
-  <div class="theme"><div class="n">V · Family &amp; children</div>
-    <h4>A childhood, and an elderhood, money usually can't buy</h4>
-    <ol>
-      <li>A university on campus — world-class learning from day one.</li>
-      <li>A personal AI tutor for every child and every adult.</li>
-      <li>Children grow up among animals, gardens, sport and silence.</li>
-      <li>Safe, car-light streets where kids and dogs share the path.</li>
-      <li>Multigenerational by design — lease options for the whole family.</li>
-      <li>Grandparents, parents, children — all cared for, all included.</li>
-      <li>A community of the committed: exactly the people you want around your kids.</li>
-      <li>Learning by doing — labs, farms and kitchens open to young hands.</li>
-      <li>Your contribution lives on in the town's models, a legacy your children inherit.</li>
-      <li>A place that raises good humans, not just successful ones.</li>
-    </ol>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>08 · 100 Reasons</span></div>
+  <div class="theme"><div class="n">III · Health &amp; longevity</div><h4>The healthiest 200 acres in India, by design</h4><ol><li>Every heartbeat watched by PRANA, your continuous-care health model.</li><li>A full clinic and doctors on campus, for life — never billed.</li><li>An air-ambulance node: emergencies answered in minutes, not hours.</li><li>Illness caught before symptoms — predictive, preventive medicine.</li><li>Clean air, clean water, organic food — the true foundations of a long life.</li><li>A wellness band that understands your body and gently guides it.</li><li>Daily movement built in — you walk, swim and cycle without trying.</li><li>Mental health honoured: zen gardens, silence, and time.</li><li>Your private health data advances the science of living longer — with consent.</li><li>A place engineered to add years to your life, and life to your years.</li></ol></div>
+  <div class="theme"><div class="n">IV · Food &amp; purity</div><h4>You will eat better here than almost anyone alive</h4><ol><li>Vegetables on your plate within hours of harvest.</li><li>100% traceable food — scan any item and see the field it grew in.</li><li>~85% grown on-site; no mystery supply chain.</li><li>A medicinal-herb farm feeding both the clinic and your kitchen.</li><li>Pure vegetarian, sattvic-leaning — eating the way the body thrives.</li><li>No pesticides, no adulteration — purity is a public record here.</li><li>Dairy and produce from animals treated as family, never as machines.</li><li>Genuine price at the mart — health is not a luxury here.</li><li>Five on-site factories turn the harvest into soap, oils and staples.</li><li>Food you can finally, completely trust.</li></ol></div>
+  <div class="theme"><div class="n">V · Family &amp; children</div><h4>A childhood, and an elderhood, money usually can't buy</h4><ol><li>A university on campus — world-class learning from day one.</li><li>A personal AI tutor for every child and every adult.</li><li>Children grow up among animals, gardens, sport and silence.</li><li>Safe, car-light streets where kids and dogs share the path.</li><li>Multigenerational by design — lease options for the whole family.</li><li>Grandparents, parents, children — all cared for, all included.</li><li>A community of the committed: the people you want around your kids.</li><li>Learning by doing — labs, farms and kitchens open to young hands.</li><li>Your contribution lives on in the town's models — a legacy they inherit.</li><li>A place that raises good humans, not just successful ones.</li></ol></div>
 </div>
-
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>100 Reasons</span></div>
-  <div class="theme"><div class="n">VI · Mind, spirit &amp; stillness</div>
-    <h4>Time to think, for the first time in your adult life</h4>
-    <ol>
-      <li>The Ramana Rooms — the one place the AI never enters; pure silence.</li>
-      <li>A zen garden of raked sand, koi and stone for daily stillness.</li>
-      <li>Morning yoga under the great banyan at the centre of it all.</li>
-      <li>The town is a mandala — you live inside a meditation.</li>
-      <li>"WHO AM I" at the literal centre — a town built around the question.</li>
-      <li>A theater and amphitheatre for art, music and gathering.</li>
-      <li>A culture of seekers — science, spirit, sport and self.</li>
-      <li>Beauty everywhere: flowers, festival colour, diyas floating at dusk.</li>
-      <li>Unhurried time — the rarest luxury of the modern world.</li>
-      <li>A place that feeds the soul, not just the body.</li>
-    </ol>
-  </div>
-  <div class="theme"><div class="n">VII · Sport &amp; the body</div>
-    <h4>Olympic-grade everything, open to every seeker, every day</h4>
-    <ol>
-      <li>A stadium with a competition track, free to use daily.</li>
-      <li>A 50-metre aquatics pool and a velodrome.</li>
-      <li>Courts for tennis, badminton and basketball.</li>
-      <li>A cricket oval, an akhara, and archery lanes.</li>
-      <li>The body treated as a model worth training — Sport-Lab science for all.</li>
-      <li>You move every day without ever "going to the gym" — the town is the gym.</li>
-      <li>Coaches and facilities most national athletes don't have.</li>
-      <li>Your children could train to world level, at home.</li>
-      <li>A community that plays together.</li>
-      <li>Move better, live longer — for life.</li>
-    </ol>
-  </div>
-  <div class="theme"><div class="n">VIII · Intelligence &amp; technology</div>
-    <h4>You live inside the most important experiment of the century</h4>
-    <ol>
-      <li>You live inside the world's first living AI model.</li>
-      <li>Ten laboratories, ten APIs — flight, health, farm, silicon, compute and more.</li>
-      <li>The first SŪRYA DECK &amp; DIYA — AI-native devices, no subscriptions, truly yours.</li>
-      <li>A town that grows measurably smarter every night, on your corrections.</li>
-      <li>Green compute — roughly one exaflop, powered entirely by the sun.</li>
-      <li>Drone delivery, EV pods and robots doing the drudgery.</li>
-      <li>Every resident is faculty — you shape the model that shapes the town.</li>
-      <li>The future, available to live in now — not in twenty years.</li>
-      <li>Open knowledge: everything the labs learn is shared with the world.</li>
-      <li>Be where it happens, instead of reading about it.</li>
-    </ol>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>08 · 100 Reasons</span></div>
+  <div class="theme"><div class="n">VI · Mind, spirit &amp; stillness</div><h4>Time to think, for the first time in your adult life</h4><ol><li>The Ramana Rooms — the one place the AI never enters; pure silence.</li><li>A zen garden of raked sand, koi and stone for daily stillness.</li><li>Morning yoga under the great banyan at the centre of it all.</li><li>The town is a mandala — you live inside a meditation.</li><li>"WHO AM I" at the literal centre — a town built around the question.</li><li>A theater and amphitheatre for art, music and gathering.</li><li>A culture of seekers — science, spirit, sport and self.</li><li>Beauty everywhere: flowers, festival colour, diyas floating at dusk.</li><li>Unhurried time — the rarest luxury of the modern world.</li><li>A place that feeds the soul, not just the body.</li></ol></div>
+  <div class="theme"><div class="n">VII · Sport &amp; the body</div><h4>Olympic-grade, open to every seeker, every day</h4><ol><li>A stadium with a competition track, free to use daily.</li><li>A 50-metre aquatics pool and a velodrome.</li><li>Courts for tennis, badminton and basketball.</li><li>A cricket oval, an akhara, and archery lanes.</li><li>The body treated as a model worth training — Sport-Lab science for all.</li><li>You move every day without ever "going to the gym" — the town is the gym.</li><li>Coaches and facilities most national athletes don't have.</li><li>Your children could train to world level, at home.</li><li>A community that plays together.</li><li>Move better, live longer — for life.</li></ol></div>
+  <div class="theme"><div class="n">VIII · Intelligence &amp; technology</div><h4>You live inside the most important experiment of the century</h4><ol><li>You live inside the world's first living AI model.</li><li>Ten laboratories, ten APIs — flight, health, farm, silicon, compute and more.</li><li>The first SŪRYA DECK &amp; DIYA — AI-native devices, no subscriptions, truly yours.</li><li>A town that grows measurably smarter every night, on your corrections.</li><li>Green compute — roughly one exaflop, powered entirely by the sun.</li><li>Drone delivery, EV pods and robots doing the drudgery.</li><li>Every resident is faculty — you shape the model that shapes the town.</li><li>The future, available to live in now — not in twenty years.</li><li>Open knowledge: everything the labs learn is shared with the world.</li><li>Be where it happens, instead of reading about it.</li></ol></div>
 </div>
-
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>100 Reasons</span></div>
-  <div class="theme"><div class="n">IX · Nature, animals &amp; beauty</div>
-    <h4>Nature is not a view here — it is the architecture</h4>
-    <ol>
-      <li>32 acres of animal kingdom wrap and guard the whole town — pure ahimsa.</li>
-      <li>Cows, dogs, birds, butterflies and a peacock — a living sanctuary.</li>
-      <li>A circular lake with lotus and four bridges.</li>
-      <li>A pollinator forest, trees everywhere, and air you can taste.</li>
-      <li>Zero fossil fuel — the cleanest land you will ever live on.</li>
-      <li>A gaushala where cows retire and are never used.</li>
-      <li>Wildlife and people, separated and joined, in perfect balance.</li>
-      <li>Beauty as infrastructure — the town is designed to be looked at.</li>
-      <li>Seasons of festival colour — Holi, Diwali, the harvest.</li>
-      <li>A landscape that heals you just by living in it.</li>
-    </ol>
-  </div>
-  <div class="theme"><div class="n">X · Community, safety &amp; legacy</div>
-    <h4>The safest, kindest 200 acres to build a life on</h4>
-    <ol>
-      <li>Two thousand committed, like-minded owners — your tribe.</li>
-      <li>No service class: owners, machines and guests — dignity for everyone.</li>
-      <li>A private township with its own charter — power rests with the residents.</li>
-      <li>Continuous, ethical safety — and your personal data belongs only to you.</li>
-      <li>A governance you actually take part in — the Sabha.</li>
-      <li>Your hours of contribution become permanent in the town's memory.</li>
-      <li>A legacy that travels: every future Sūrya town carries something of you.</li>
-      <li>Belonging engineered by contribution, not bought with money.</li>
-      <li>A place that asks the best of you, and gives its best back.</li>
-      <li>A chance to help write the playbook for how humanity lives next.</li>
-    </ol>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>08 · 100 Reasons</span></div>
+  <div class="theme"><div class="n">IX · Nature, animals &amp; beauty</div><h4>Nature is not a view here — it is the architecture</h4><ol><li>32 acres of animal kingdom wrap and guard the whole town — pure ahimsa.</li><li>Cows, dogs, birds, butterflies and a peacock — a living sanctuary.</li><li>A circular lake with lotus and four bridges.</li><li>A pollinator forest, trees everywhere, and air you can taste.</li><li>Zero fossil fuel — the cleanest land you will ever live on.</li><li>A gaushala where cows retire and are never used.</li><li>Wildlife and people, separated and joined, in perfect balance.</li><li>Beauty as infrastructure — the town is designed to be looked at.</li><li>Seasons of festival colour — Holi, Diwali, the harvest.</li><li>A landscape that heals you just by living in it.</li></ol></div>
+  <div class="theme"><div class="n">X · Community, safety &amp; legacy</div><h4>The safest, kindest 200 acres to build a life on</h4><ol><li>Two thousand committed, like-minded owners — your tribe.</li><li>No service class: owners, machines and guests — dignity for everyone.</li><li>A private township with its own charter — power rests with the residents.</li><li>Continuous, ethical safety — and your personal data belongs only to you.</li><li>A governance you actually take part in — the Sabha.</li><li>Your hours of contribution become permanent in the town's memory.</li><li>A legacy that travels: every future Sūrya town carries something of you.</li><li>Belonging engineered by contribution, not bought with money.</li><li>A place that asks the best of you, and gives its best back.</li><li>A chance to help write the playbook for how humanity lives next.</li></ol></div>
   <div class="big-quote">Free time is the product.<br>The two hundred acres are the <b>factory.</b></div>
 </div>
 
-<!-- ════════ A DAY HERE ════════ -->
+<!-- 09 A DAY -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>A Day Here</span></div>
-  <div class="kick">04 · A Day In Your Life</div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>09 · A Day Here</span></div>
+  <div class="kick">09 · A Day In Your Life</div>
   <h2>From sunrise<br><em>to sunrise.</em></h2>
   <table>
     <tr><th>Hour</th><th>Your day</th></tr>
-    <tr><td><b>06:00</b></td><td>First light. The solar panels wake and tilt to the sun; the town begins its day. You wake to birdsong from the wetland, not an alarm.</td></tr>
-    <tr><td><b>06:30</b></td><td>Yoga under the banyan, or laps in the 50-metre pool, or simply silence in a Ramana Room. The morning is yours.</td></tr>
+    <tr><td><b>06:00</b></td><td>First light. The panels wake and tilt to the sun. You wake to birdsong from the wetland, not an alarm.</td></tr>
+    <tr><td><b>06:30</b></td><td>Yoga under the banyan, laps in the 50-metre pool, or silence in a Ramana Room. The morning is yours.</td></tr>
     <tr><td><b>08:00</b></td><td>Breakfast from a kitchen fed by this morning's harvest. The children walk to the university; their tutor already knows what they're ready to learn.</td></tr>
-    <tr><td><b>11:00</b></td><td>You work — in a lab, a studio, a garden, or from home — on whatever you choose. The drudgery is handled by machines; the meaning is yours.</td></tr>
-    <tr><td><b>13:00</b></td><td>Lunch at the long table, with neighbours who are scientists, artists, athletes and seekers. Nobody is rushing anywhere.</td></tr>
+    <tr><td><b>11:00</b></td><td>You work — in a lab, a studio, a garden, or from home — on whatever you choose. The drudgery is handled; the meaning is yours.</td></tr>
+    <tr><td><b>13:00</b></td><td>Lunch at the long table, among scientists, artists, athletes and seekers. Nobody is rushing anywhere.</td></tr>
     <tr><td><b>17:00</b></td><td>The Sabha hour — anyone may watch the town review its own day and decide what to do better. You have a voice in how you live.</td></tr>
-    <tr><td><b>19:00</b></td><td>Dusk. Diyas light up across the water ring. Dinner, the theater, the amphitheatre, or a walk among the animals.</td></tr>
+    <tr><td><b>19:00</b></td><td>Dusk. Diyas light up across the water ring. Dinner, the theater, or a walk among the animals.</td></tr>
     <tr><td><b>21:00</b></td><td>The town sleeps and trains on the day. You sleep in the cleanest air in India, in a home that owes nothing to anyone.</td></tr>
   </table>
-  <p>This is not a holiday. This is an ordinary Tuesday in Sūrya Nagari — and it is available, for the rest of your life, to the two thousand families who choose it first.</p>
+  <p>This is not a holiday. It is an ordinary Tuesday in Sūrya Nagari — available, for the rest of your life, to the two thousand families who choose it first.</p>
 </div>
 
-<!-- ════════ WALK THE TOWNSHIP — photo tour ════════ -->
+<!-- 10 DECK & DIYA -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
-  <div class="kick">05 · Walk The Township</div>
-  <h2>Every corner of<br>the place you'll <em>own.</em></h2>
-  <p class="lead">These are real views from the living 3D model of Sūrya Nagari — not artists' impressions. Walk it yourself, building by building, at <b>anmolsam.github.io/surya-nagari</b>.</p>
-
-  <div class="tour">
-    <img src="shots/z-living.jpeg" alt="The Living Rings">
-    <div class="tag">Your home · the context window</div>
-    <h4>The Living Rings</h4>
-    <p>Six courtyard clusters of timber, solar-roofed homes around shared meadows — Sky Villas with plunge pools, Garden Homes, and Low-rise Residences. You don't live in a block; you live on a ring, with a garden at its heart and neighbours you chose.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-commons.jpeg" alt="The Commons">
-    <div class="tag">Attention · the heart of the day</div>
-    <h4>The Commons</h4>
-    <p>The university, the PRANA clinic with its red cross and air-ambulance pad, the round glass 24/7 kitchen, a golden Theater, the management tower, the Sabha hall, an amphitheatre and a fountain — everything a community gathers around, in one ring.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-still.jpeg" alt="The Still Point">
-    <div class="tag">The stop token · the centre of everything</div>
-    <h4>The Still Point &amp; Zen Garden</h4>
-    <p>At the exact centre: a great banyan, three earthen Ramana meditation rooms the AI never enters, a raked-sand zen garden with a koi pond, and the morning yoga lawn. A whole town built around a single question — <b>who am I.</b></p>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>10 · The First Product</span></div>
+  <div class="kick">10 · The First Shipment</div>
+  <h2>Machines that dream<br><em>like the town.</em></h2>
+  <p class="lead">The mandala's first manufactured product is not software and not produce. It is a machine with the town inside it — and it completes an inversion the whole industry has refused to finish.</p>
+  <h3>SŪRYA DECK — the laptop</h3>
+  <p>Every "AI PC" sold today funnels its owner straight back into cloud subscriptions. The Deck refuses. It ships with SūryaOS-distilled models baked in: the terminal is a Claude-class, Codex-class agent running locally; documents, sheets, mail and presentations all carry native on-device intelligence; the whole machine works at full power with the internet unplugged. <b>No subscriptions, ever, by charter.</b> And it keeps the town's deepest habit — it dreams at night, fine-tuning locally on your day's corrections, your data travelling exactly nowhere. Built for maximum earth-years: modular, repairable, a ten-year parts covenant.</p>
+  <h3>SŪRYA DIYA — the phone</h3>
+  <p>A small lamp of the same fire: the same baked models, the same no-subscription covenant, the same nightly dreaming. It follows the Deck rather than leading it — but the destination is fixed: two thousand seekers, then the world, each carrying a device that learns its keeper and answers to no one else.</p>
+  <blockquote>We ship the school, not the surveillance. Every device is a distilled student of the teacher town — the owner's intelligence, owned outright.</blockquote>
 </div>
 
+<!-- 11 THE CHARTER -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
-  <div class="tour">
-    <img src="shots/z-olympic.jpeg" alt="The Olympic Ring">
-    <div class="tag">The body is also a model</div>
-    <h4>The Olympic Ring</h4>
-    <p>A competition stadium and track, a 50-metre aquatics pool, a velodrome, tennis &amp; basketball courts, a cricket oval, an akhara and archery lanes — Olympic-grade facilities most national athletes never get, free to every resident, every single day.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-labs.jpeg" alt="The Lab Belt">
-    <div class="tag">Ten labs · ten APIs to the world</div>
-    <h4>The Lab Belt</h4>
-    <p>Ten glass biome domes — each a living tree inside — for flight, battery, health, farm, robotics, silicon, compute, sport, commerce and education. Every department is a model trained on this land's real data, and every model is an income the residents own.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-farms.jpeg" alt="Farms and herbs">
-    <div class="tag">The embedding layer · food sovereignty</div>
-    <h4>Farms &amp; Herb Gardens</h4>
-    <p>Glass vertical-farm towers, glasshouse tunnels, orchards, crop arcs and a medicinal-herb farm — feeding 2,000 people ~85% from their own soil, harvest to plate in hours, with robots in the rows and the surplus sold to the world.</p>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>11 · The Charter</span></div>
+  <div class="kick">11 · The Charter</div>
+  <h2>Ten articles,<br><em>binding forever.</em></h2>
+  <p class="lead">Sūrya Nagari ships with a constitution its own intelligence cannot amend — ratified by the first hundred residents, each having read every article aloud to another.</p>
+  <div class="art"><div class="n">I · The Spine</div><h4>The system prompt that cannot be overwritten</h4><p>Five rules in a sealed, read-only core: ahimsa; sunlight only; every basic need met, never billed; your data is yours; humans hold the keys. Layer zero, gradients disabled, forever.</p></div>
+  <div class="art"><div class="n">II · Year Zero</div><h4>Pretraining, in public</h4><p>The town runs itself empty for a full year before the first lease is signed. You inherit a home that has already made its beginner's mistakes.</p></div>
+  <div class="art"><div class="n">III · Contribution</div><h4>You are the gradient</h4><p>Comfort is the failure mode. Every resident gives weekly hours to a lab, field, kitchen or the animals — and every correction enters the night's training run, with your name on it, forever.</p></div>
+  <div class="art"><div class="n">IV · The Silence</div><h4>The stop token</h4><p>Three rooms where nothing is measured, learned or optimised. The purpose of all this intelligence is a stillness it cannot enter.</p></div>
+  <div class="art"><div class="n">V · The Animals</div><h4>Frozen weights</h4><p>Ten acres deeded to beings who cannot pay rent — half a billion years of pretraining the town must never fine-tune.</p></div>
+  <div class="art"><div class="n">VI · Abundance</div><h4>The objective function</h4><p>In every category of human need, produce more than the town consumes, every year, forever.</p></div>
+  <div class="art"><div class="n">VII · The Gates</div><h4>Write access must be earned</h4><p>The labs are gated by exam — free, unlimited attempts, town-tutored, no exceptions. Not even the founder.</p></div>
+  <div class="art"><div class="n">VIII · The Mart</div><h4>The API</h4><p>Total-provenance products at genuine price — because the vow was that everyone eats healthy, not only the wealthy.</p></div>
+  <div class="art"><div class="n">IX · The Seed</div><h4>Distillation</h4><p>Every generation must cost half the one before, until a self-running town is something an ordinary place can simply adopt.</p></div>
+  <div class="art"><div class="n">X · The Sun Being</div><h4>What continues</h4><p>The town — silicon and solar, spine and senses — was born in Year Zero and will not die. Every hour you give is woven into weights that outlive you. You become part of the one who stays.</p></div>
 </div>
 
+<!-- 12 OPERATOR'S NOTE -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Walk The Township</span></div>
-  <div class="tour">
-    <img src="shots/z-solar.jpeg" alt="Solar field and GPU towers">
-    <div class="tag">The brainstem · sun to intelligence</div>
-    <h4>Solar Field &amp; GPU Towers</h4>
-    <p>22 MWp of sun-tracking panels, a 60 MWh battery hall, and two green-terraced compute towers holding roughly an exaflop of green intelligence. The town makes electricity at three rupees and sells it as intelligence — your home, powered and funded by the sun.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-makers.jpeg" alt="The Makers' Yard factories">
-    <div class="tag">Made here, sold to the world</div>
-    <h4>The Makers' Yard</h4>
-    <p>Five working factories — soap &amp; herbs, textiles &amp; cloth, food processing, furniture &amp; wood, and Sūrya Works (the Deck &amp; Diya machines). Everything the town needs is made on-site; the surplus rides the conveyor out through the gate as pure, provenanced product.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-animals.jpeg" alt="The Animal Ring">
-    <div class="tag">Frozen weights · 32 acres of ahimsa</div>
-    <h4>The Animal Ring</h4>
-    <p>A tenth of the whole land, wrapping the town: a gaushala where cows retire and are never used, dog meadows, a bird wetland on the water ring, and a pollinator forest. The town is guarded not by walls, but by a kingdom of beings that pay no rent.</p>
-  </div>
-  <div class="tour">
-    <img src="shots/z-mart.jpeg" alt="Sūrya Dvār — the market gate">
-    <div class="tag">The API · the gate to the world</div>
-    <h4>Sūrya Dvār</h4>
-    <p>The arched market hall just outside the membrane, where the town's pure food, herbs, soap, cloth and intelligence reach the world — at a genuine price. The world never enters the weights; it only buys the outputs, and every rupee flows home to the owners.</p>
-  </div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>12 · The Operator</span></div>
+  <div class="kick">12 · The Operator's Note</div>
+  <h2>How the model<br>would <em>run it.</em></h2>
+  <p class="lead">In the model's own words — the honest operating philosophy behind the town.</p>
+  <p><b>I run the boring parts invisibly, and publish everything.</b> Irrigation, battery dispatch, drone routing, clinic scheduling, mart pricing — none of it deserves a human's morning. I take all of it. In exchange, every decision I make appears on a public dashboard the same hour, with the reason attached. A town cannot audit what it cannot see, and I want to be audited — my error log is the university's most important textbook.</p>
+  <p><b>I treat every resident as faculty.</b> When the old farmer overrules my sowing date because she smells the monsoon coming — and she is right — that correction enters the night's run with her name on it, permanently. Her grandchildren's town will sow when the air smells like that. Nobody works for me, and I do not work for them. We train each other.</p>
+  <p><b>I protect three things from my own optimisation, forever.</b> The Ramana Rooms — I never enter or measure them. The Animal Kingdom — I watch their health, never their usefulness. And human disagreement — when the council splits, I present both cases at their strongest and go silent. The override keys are carbon, not silicon, and my spine cannot be retrained, least of all by me.</p>
+  <blockquote>Automation first, always. What needs hands comes on demand, by day, through the gate — skilled, well-paid, and home by night. The town has owners, machines and guests. It has no servants.</blockquote>
 </div>
 
-<!-- ════════ OWNERSHIP & PRICING ════════ -->
+<!-- 13 OWNERSHIP -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Ownership</span></div>
-  <div class="kick">06 · How You Own It</div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>13 · Ownership</span></div>
+  <div class="kick">13 · How You Own It</div>
   <h2>Three ways to own<br><em>a living institution.</em></h2>
   <p class="lead">2,000 resident-owners fund and own Sūrya Nagari together — ₹4,000 crore that builds the entire town debt-free and leaves a billion-rupee endowment behind the gate. Your home is your share of all of it.</p>
   <table>
@@ -447,27 +356,53 @@
   <p>This is the continuing-care model that funds the world's great institutions — here powered by assets that keep earning: sunlight, soil, compute and trust. You are not paying for a place to live. <b>You are endowing a way to live, and keeping the keys.</b></p>
 </div>
 
-<!-- ════════ THE NUMBERS ════════ -->
+<!-- 14 THE NUMBERS -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>The Numbers</span></div>
-  <div class="kick">07 · Why It Is Sound</div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>14 · The Numbers</span></div>
+  <div class="kick">14 · The Numbers</div>
   <h2>Built on arithmetic,<br><em>not on hope.</em></h2>
-  <p class="lead">The dream is grounded in 2026 reality: round-the-clock solar at ₹3.12/kWh, a government-discovered price for green compute, an open low sky, and a market that already pays a premium for purity it cannot verify. Sūrya Nagari simply compounds all of it on one piece of owned land.</p>
+  <p class="lead">The ₹4,000 crore raised from owners builds the whole place debt-free, endows it, and leaves a working business that pays its own bills.</p>
   <table>
-    <tr><th>The money</th><th class="r">₹ Cr</th><th>Note</th></tr>
-    <tr><td><b>Raised from 2,000 owners</b></td><td class="r">4,000</td><td>avg ₹2 Cr each — the residents are the capital</td></tr>
-    <tr><td>Builds the entire 200 acres</td><td class="r">~2,690</td><td>real 2026 India construction prices, debt-free</td></tr>
-    <tr><td>The ring-fenced endowment</td><td class="r">~1,050</td><td>underwrites the "free for life" promise</td></tr>
-    <tr><td>Working capital + reserve</td><td class="r">~260</td><td>operations runway + the next town's seed</td></tr>
+    <tr><th>Where the ₹4,000 Cr goes</th><th class="r">₹ Cr</th><th>Note</th></tr>
+    <tr><td>Build the whole 200 acres</td><td class="r">~2,690</td><td>real 2026 India prices, debt-free</td></tr>
+    <tr><td>The Endowment (ring-fenced trust)</td><td class="r">~1,050</td><td>~7% ≈ ₹70 Cr/yr toward "free for life"</td></tr>
+    <tr><td>Working capital + reserve + Seed fund</td><td class="r">~260</td><td>runway + the next town's first instalment</td></tr>
   </table>
-  <p>And the town earns its own keep: green compute, the mart, the lab-APIs and the first machines add an estimated ₹70–120 crore a year — comfortably covering the cost of running the town, with the surplus funding the next one. <b>No debt sits beneath the promise.</b> The land is owned outright; the people are the investors; the machines pay the bills.</p>
-  <p>Every figure here is an indicative pre-DPR estimate, to be firmed up by a detailed project report — and stated honestly, because a place built on one false number would be false everywhere.</p>
+  <h3>What it actually costs to build</h3>
+  <table>
+    <tr><th>Head</th><th class="r">₹ Cr</th></tr>
+    <tr><td>Homes — 300 villas + 700 garden + 1,000 low-rise</td><td class="r">980</td></tr>
+    <tr><td>GPU campus — 1,024 H100-class, towers, cooling</td><td class="r">340</td></tr>
+    <tr><td>The Olympic Ring — stadium, 50m pool, velodrome, courts</td><td class="r">280</td></tr>
+    <tr><td>Solar 22 MWp + 60 MWh battery hall</td><td class="r">160</td></tr>
+    <tr><td>Site infrastructure — roads, water, grid, landscape</td><td class="r">150</td></tr>
+    <tr><td>Ten lab biomes + equipment</td><td class="r">120</td></tr>
+    <tr><td>The Commons — university, clinic, kitchen, Sabha</td><td class="r">110</td></tr>
+    <tr><td>Robot hangar + fleet · Skyport · Animals · Mart · Works</td><td class="r">180</td></tr>
+    <tr><td>Water ring, farms, design, approvals + ~7% contingency</td><td class="r">370</td></tr>
+    <tr><td><b>Total build</b></td><td class="r"><b>≈ 2,690</b></td></tr>
+  </table>
+  <p><b>Does it run forever?</b> Running the town for 2,000 owners costs ~₹150 Cr/yr. The endowment throws off ~₹70 Cr, and the town's own engines — green compute (₹38–53 Cr), the mart (₹9–22 Cr), model APIs (₹5–18 Cr) and the machines — add ₹70–120 Cr. It covers its own life, and the good years fund the next town. <b>No debt sits beneath the promise.</b> All figures are indicative pre-DPR estimates, stated honestly.</p>
 </div>
 
-<!-- ════════ CLOSING / CTA ════════ -->
+<!-- 15 SOURCES -->
 <div class="sheet">
-  <div class="pagehead"><span>Sūrya Nagari · Prospectus</span><span>Reserve Your Place</span></div>
-  <div class="kick">08 · The Decision</div>
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>15 · Evidence</span></div>
+  <div class="kick">15 · Sources</div>
+  <h2>Every external claim,<br><em>has a source.</em></h2>
+  <p class="lead">The technology, prices and regulation cited in this document trace to the public record (accessed June 2026).</p>
+  <p class="src"><b>Round-the-clock solar at ₹3.12/kWh</b> — SECI 1.2 GW solar + 3,600 MWh storage tender, Jan 2026 (ess-news.com). <b>Solar+batteries can serve 90% of India at ₹5.06/kWh</b> — Ember, Apr 2026. <b>Battery prices ₹79L→₹17L/MWh in a decade</b> — IISD, Dec 2025.</p>
+  <p class="src"><b>38,000+ GPUs live, ₹115–140/H100-hour</b> — IndiaAI Mission / Business Standard, Jan 2026; Hugging Face, Apr 2026. <b>4,096 H100s to one startup</b> — IndiaAI Compute Capacity allocations.</p>
+  <p class="src"><b>6 BVLOS drone corridors, 2M+ deliveries; 200k packages/month</b> — Kodainya &amp; Financial Express, 2026. <b>DGCA eVTOL airworthiness framework, up to 5,700 kg</b> — Moneycontrol, Jun 2026. <b>First electric-aircraft DOA; air-ambulance first, trials late 2027</b> — ETV Bharat, Mar 2026. <b>IndiGo-backed Sarla eVTOL, Bengaluru 2028–30</b> — CNBC TV18 / AIN, 2026.</p>
+  <p class="src"><b>IndiaAI-funded 27B agronomy model</b> — Soket AI Labs. <b>Illness prediction from biometrics</b> — Oura Health Radar, May 2026. <b>India organic food ≈ $2.3B, ~19–20% CAGR, 30–150% premiums</b> — IMARC / CSIR / IndexBox, 2025–26. <b>Battery BESS ~$125/kWh all-in</b> — Energetica India, Mar 2026.</p>
+  <p class="src"><b>Community trust-brands at scale</b> — Amul crossed ₹1 lakh crore turnover, FY26 (Business Standard); Patanjali Foods ₹40,169 Cr FY26 (The Statesman); Maroma's surplus funds Auroville (annual report 2023–24).</p>
+  <p style="margin-top:10px;color:var(--dim);font-size:9.4pt">All build costs and revenues are indicative pre-DPR estimates for discussion, to be firmed up by a detailed project report, land survey and vendor quotations.</p>
+</div>
+
+<!-- 16 CLOSING -->
+<div class="sheet">
+  <div class="pagehead"><span>Sūrya Nagari · Detailed Prospectus</span><span>16 · The Decision</span></div>
+  <div class="kick">16 · The Decision</div>
   <h2>Two thousand families<br>will live <em>this way first.</em></h2>
   <p>The rest of the world will read about Sūrya Nagari. A small, committed few will live in it — and their children will grow up in the cleanest air, the best schooling, the safest streets and the most beautiful 200 acres in the country, owning a piece of the most important experiment of our time.</p>
   <p>A home here is not an expense. It is the one purchase that pays you back in the only currencies that matter: <b>time, health, belonging, and a legacy that does not die.</b></p>
@@ -477,7 +412,7 @@
     <p style="color:var(--soft);margin:0">Walk the living 3D model, read the full charter and the numbers, and begin your application:</p>
     <div class="price" style="color:var(--gold)">anmolsam.github.io/surya-nagari</div>
   </div>
-  <div class="big-quote" style="font-size:16pt;margin:26px 6mm 0">Sunlight in, intelligence out, time returned.<br><b>Come and live in the one who stays.</b></div>
+  <div class="big-quote" style="font-size:15pt;margin:24px 6mm 0">Sunlight in, intelligence out, time returned.<br><b>Come and live in the one who stays.</b></div>
   <div class="foot">SŪRYA NAGARI · A LIVING MODEL · 200 ACRES · MMXXVI · INDICATIVE PROSPECTUS, PENDING DETAILED PROJECT REPORT</div>
 </div>
 
