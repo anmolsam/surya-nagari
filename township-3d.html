@@ -40,6 +40,44 @@
   #inside button.exit{display:none;color:var(--gold);border-color:var(--gold)}
   #inside button.exit.show{display:inline-block}
   #fade{position:fixed;inset:0;background:#05070f;opacity:0;pointer-events:none;transition:opacity .45s;z-index:40}
+  #telem{display:none}
+  /* ── VITALS BAR — the living signs, always on ── */
+  #vitals{top:18px;left:50%;transform:translateX(-50%);display:flex;align-items:stretch;
+    background:rgba(6,9,16,.66);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(12px);overflow:hidden;
+    box-shadow:0 8px 40px rgba(0,0,0,.4)}
+  #vitals .vit{padding:8px 15px;border-right:1px solid var(--line);text-align:center;min-width:78px}
+  #vitals .vit:last-child{border-right:none}
+  #vitals .vv{font-family:var(--mono);font-size:16px;color:#ece7d8;font-weight:700;line-height:1.05}
+  #vitals .vv.gold{color:var(--gold)}#vitals .vv.teal{color:var(--teal)}#vitals .vv.rose{color:var(--rose)}
+  #vitals .vl{font-family:var(--mono);font-size:8px;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:3px}
+  #vitals .heart{display:flex;align-items:center;gap:9px}
+  #vHeart{font-size:19px;display:inline-block;transform-origin:center;will-change:transform}
+  #vEcg{display:block;border-radius:4px}
+  /* ── CINEMATIC PITCH ── */
+  #pitch{position:fixed;inset:0;z-index:30;pointer-events:none;
+    background:radial-gradient(130% 130% at 50% 45%, transparent 42%, rgba(3,5,10,.78) 100%);
+    opacity:0;transition:opacity .6s;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding-bottom:20vh}
+  #pitch.show{opacity:1}
+  #pitch .pbar{position:absolute;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--gold),#f5d77a);box-shadow:0 0 12px rgba(233,185,73,.6)}
+  #pitch .pstat{font-family:var(--mono);font-size:clamp(42px,9vw,108px);font-weight:700;letter-spacing:-.02em;line-height:1;
+    background:linear-gradient(100deg,#f5d77a 10%,var(--gold) 55%,#f5d77a 90%);-webkit-background-clip:text;background-clip:text;color:transparent;
+    filter:drop-shadow(0 6px 30px rgba(0,0,0,.7));opacity:0;transform:translateY(22px);transition:all .7s cubic-bezier(.2,.7,.2,1)}
+  #pitch .ptitle{font-size:clamp(22px,4.4vw,42px);color:#fff;font-weight:600;margin-top:8px;text-align:center;padding:0 22px;
+    text-shadow:0 2px 18px #000;opacity:0;transform:translateY(16px);transition:all .7s .08s cubic-bezier(.2,.7,.2,1)}
+  #pitch .psub{font-size:clamp(13px,2vw,18px);color:#cfcaba;margin-top:12px;text-align:center;padding:0 26px;max-width:720px;
+    text-shadow:0 1px 10px #000;opacity:0;transition:opacity .8s .2s}
+  #pitch.beat .pstat,#pitch.beat .ptitle{opacity:1;transform:none}
+  #pitch.beat .psub{opacity:1}
+  #pskip{position:fixed;top:22px;right:24px;z-index:32;display:none;font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+    color:var(--dim);background:rgba(6,9,16,.62);border:1px solid var(--line);border-radius:99px;padding:9px 17px;cursor:pointer;backdrop-filter:blur(6px)}
+  #pskip:hover{color:var(--gold);border-color:var(--gold)}
+  @media(max-width:820px){
+    #vitals{top:auto;bottom:calc(max(20px,env(safe-area-inset-bottom)) + 156px);max-width:96vw;overflow-x:auto;scrollbar-width:none}
+    #vitals::-webkit-scrollbar{display:none}
+    #vitals .vit{min-width:64px;padding:7px 11px}
+    #vitals .vv{font-size:14px}
+    #pskip{top:16px;right:14px;bottom:auto}
+  }
   #info{bottom:90px;left:50%;transform:translateX(-50%);text-align:center;max-width:660px;padding:0 16px}
   #info .zname{font-family:var(--mono);font-size:13px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase}
   #info .zdesc{font-size:13px;color:var(--dim);margin-top:6px;line-height:1.55;text-shadow:0 1px 8px #000}
@@ -59,9 +97,9 @@
     #views button,#inside button{flex:0 0 auto;padding:10px 16px;font-size:11px}
     #views{bottom:max(20px,env(safe-area-inset-bottom))}
     #inside{bottom:calc(max(20px,env(safe-area-inset-bottom)) + 52px)}
-    #info{bottom:calc(max(20px,env(safe-area-inset-bottom)) + 104px);padding:10px 16px}
+    #info{top:64px;bottom:auto;padding:0 16px}
     #info .zname{font-size:11px}
-    #info .zdesc{font-size:12px;background:rgba(6,9,16,.6);border-radius:10px;padding:8px 12px;backdrop-filter:blur(4px)}
+    #info .zdesc{font-size:12px;background:rgba(6,9,16,.55);border-radius:10px;padding:8px 12px;backdrop-filter:blur(4px);max-width:90vw;margin:6px auto 0}
   }
 </style>
 </head>
@@ -69,7 +107,7 @@
 <div id="loading">WAKING THE LIVING MODEL …</div>
 <div id="scene"></div>
 
-<div class="hud" id="title"><h1>SŪRYA-1</h1><div class="sub">humanity-first · 200 acres · a university of seekers</div></div>
+<div class="hud" id="title"><h1>SŪRYA-1</h1><div class="sub">the living model · 200 acres</div></div>
 <a class="hud" id="back" href="index.html">← master document</a>
 <div class="hud" id="mode">DAY · INFERENCE</div>
 <div class="hud" id="telem">
@@ -88,8 +126,11 @@
 </div>
 <div class="hud" id="hint">drag — orbit · scroll — zoom · right-drag — pan<br>one full day passes every 60 seconds</div>
 <div class="hud" id="info"><div class="zname">THE MANDALA</div><div class="zdesc">200 acres in sacred rings: animals guard the outermost circle, a ring of water separates their kingdom from ours, and at the exact center — where every other city puts its monument — stands the one question: WHO AM I.</div></div>
+<div class="hud" id="vitals"></div>
 <div class="hud" id="inside"><span class="lbl">step inside →</span></div>
 <div class="hud" id="views"></div>
+<div id="pitch"><div class="pbar"></div><div class="pstat"></div><div class="ptitle"></div><div class="psub"></div></div>
+<button id="pskip">skip intro ▸</button>
 <div id="fade"></div>
 
 <script type="importmap">
@@ -103,8 +144,8 @@ import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
 const HERO = new URLSearchParams(location.search).get('hud')==='min';
 if (HERO){
   // hero showcase: hide ALL chrome — just the living model + its light zone plaques
-  for(const id of ['title','back','hint','views','inside','telem','mode','info'])
-    document.getElementById(id).style.display='none';
+  for(const id of ['title','back','hint','views','inside','telem','mode','info','vitals','pskip'])
+    {const el=document.getElementById(id);if(el)el.style.display='none';}
 }
 
 /* ── renderer / scene ── */
@@ -128,7 +169,7 @@ controls.maxPolarAngle=Math.PI*0.495;controls.minDistance=20;controls.maxDistanc
 controls.autoRotate=true;controls.autoRotateSpeed=HERO?.5:.28;
 if(HERO){controls.enabled=false;}                 // hero: auto-rotate only, never trap page scroll
 else{renderer.domElement.style.touchAction='none';}
-controls.addEventListener('start',()=>{controls.autoRotate=false;stopTour();});
+controls.addEventListener('start',()=>{controls.autoRotate=false;stopTour();if(typeof endPitch==='function')endPitch();});
 
 const sunLight=new THREE.DirectionalLight(0xffe9b0,2.6);
 sunLight.castShadow=true;sunLight.shadow.mapSize.set(2048,2048);
@@ -991,7 +1032,7 @@ tourBtn.onclick=(e)=>{e.stopPropagation();
 viewsEl.appendChild(tourBtn);
 Object.keys(VIEWS).forEach((k,i)=>{
  const b=document.createElement('button');b.textContent=k;if(i===0)b.classList.add('on');
- b.onclick=()=>{stopTour();controls.autoRotate=false;controls.minDistance=20;goView(k);
+ b.onclick=()=>{stopTour();if(typeof endPitch==='function')endPitch();controls.autoRotate=false;controls.minDistance=20;goView(k);
   if(typeof exitBtn!=='undefined')exitBtn.classList.remove('show');};
  viewsEl.appendChild(b);});
 const insideEl=document.getElementById('inside');
@@ -999,7 +1040,7 @@ const fadeEl=document.getElementById('fade');
 function fadeTo(fn){fadeEl.style.opacity=1;setTimeout(()=>{fn();setTimeout(()=>fadeEl.style.opacity=0,120);},460);}
 Object.keys(INTERIORS).forEach(k=>{
  const b=document.createElement('button');b.textContent=k;
- b.onclick=()=>{const v=INTERIORS[k];stopTour();
+ b.onclick=()=>{const v=INTERIORS[k];stopTour();if(typeof endPitch==='function')endPitch();
   fadeTo(()=>{camera.position.set(...v.p);controls.target.set(...v.t);camGoal=null;
    controls.minDistance=2;controls.autoRotate=false;exitBtn.classList.add('show');});
   infoName.textContent='INSIDE · '+k.toUpperCase();infoDesc.textContent=v.d;
@@ -1012,6 +1053,61 @@ exitBtn.onclick=()=>{fadeTo(()=>{camera.position.set(620,540,820);controls.targe
  infoName.textContent='THE MANDALA';infoDesc.textContent=VIEWS['The Mandala'].d;
  document.querySelectorAll('#views button').forEach((x,i)=>x.classList.toggle('on',i===0));};
 insideEl.appendChild(exitBtn);
+
+/* ════════════ VITALS BAR ════════════ */
+const vitalsEl=document.getElementById('vitals');
+vitalsEl.innerHTML=
+ '<div class="vit"><div class="heart"><span id="vHeart">❤</span><canvas id="vEcg" width="64" height="22"></canvas>'
+ +'<div><div class="vv rose" id="vBpm">64</div><div class="vl">BPM · alive</div></div></div></div>'
+ +'<div class="vit"><div class="vv gold" id="vSolar">22</div><div class="vl">MW solar</div></div>'
+ +'<div class="vit"><div class="vv teal">1,024</div><div class="vl">GPUs · ≈1 EFLOP</div></div>'
+ +'<div class="vit"><div class="vv">2,000</div><div class="vl">resident-owners</div></div>'
+ +'<div class="vit"><div class="vv gold">8,000</div><div class="vl">meals / day</div></div>'
+ +'<div class="vit"><div class="vv teal">10</div><div class="vl">live lab APIs</div></div>'
+ +'<div class="vit"><div class="vv" id="vMode">DAY</div><div class="vl" id="vModeL">inference</div></div>';
+const vHeart=document.getElementById('vHeart'),vBpm=document.getElementById('vBpm'),
+      vSolar=document.getElementById('vSolar'),vMode=document.getElementById('vMode'),vModeL=document.getElementById('vModeL'),
+      vEcgCtx=document.getElementById('vEcg').getContext('2d');
+
+/* ════════════ CINEMATIC PITCH — sells itself in 75 seconds, hands-free ════════════ */
+const PITCH=[
+ {v:'The Mandala',    s:'',         t:'SŪRYA-1',                              u:'the world’s first LIVING model'},
+ {v:'The Still Point',s:'64 BPM',   t:'It has a heartbeat.',                  u:'a town that breathes — by day it thinks, by night it dreams on stored sunlight'},
+ {v:'Living Rings',   s:'2,000',    t:'humans, held in one context',         u:'resident-owners · ₹4,000 crore · they own the machine they live in'},
+ {v:'Solar + GPU',    s:'≈1 EFLOP', t:'intelligence, from sunlight',         u:'1,024 GPUs · 22 MW of solar · zero fossil, forever'},
+ {v:'Farms',          s:'8,000',    t:'meals a day, grown on site',          u:'~85% food self-sufficient · harvest to plate in hours'},
+ {v:'The Lab Belt',   s:'10 APIs',  t:'ten labs, sold to the world',         u:'every department is a model — flight · health · farm · silicon · compute · sport'},
+ {v:'Olympic Ring',   s:'',         t:'the body is also a model',            u:'Olympic-grade — stadium, 50m aquatics, velodrome — for every seeker'},
+ {v:'Animal Ring',    s:'',         t:'guarded by a kingdom that pays no rent',u:'ahimsa · the frozen weights wrap the whole mandala'},
+ {v:'The Mandala',    s:'200 ACRES',t:'this is SŪRYA-1',                      u:'a living model, owned by its people — drag to explore, or press ▶ pitch to replay'},
+];
+const pitchEl=document.getElementById('pitch'),pskip=document.getElementById('pskip');
+const pStat=pitchEl.querySelector('.pstat'),pTitle=pitchEl.querySelector('.ptitle'),pSub=pitchEl.querySelector('.psub'),pBar=pitchEl.querySelector('.pbar');
+const pitch={on:false,idx:-1,timer:0,hold:8};
+if(!HERO){const me=document.getElementById('mode');if(me)me.style.display='none';} // vitals bar shows day/night
+function setExploreUI(show){const d=show?'':'none';
+ for(const id of ['vitals','views','inside','info','title','hint','back']){const el=document.getElementById(id);if(el)el.style.display=d;}}
+function pitchBeat(){
+ pitch.idx++;
+ if(pitch.idx>=PITCH.length){endPitch();return;}
+ const b=PITCH[pitch.idx];goView(b.v);
+ pitchEl.classList.remove('beat');
+ pStat.textContent=b.s;pStat.style.display=b.s?'block':'none';
+ pTitle.textContent=b.t;pSub.textContent=b.u;
+ setTimeout(()=>pitchEl.classList.add('beat'),360);
+ pitch.timer=0;}
+function startPitch(){if(HERO)return;pitch.on=true;pitch.idx=-1;
+ controls.autoRotate=false;stopTour();setExploreUI(false);
+ pitchEl.classList.add('show');pskip.style.display='block';pitchBeat();}
+function endPitch(){if(!pitch.on)return;pitch.on=false;
+ pitchEl.classList.remove('show','beat');pskip.style.display='none';
+ setExploreUI(true);controls.autoRotate=true;
+ goView('The Mandala');}
+pskip.onclick=endPitch;
+/* a ▶ pitch replay button at the front of the views row */
+const pitchBtn=document.createElement('button');pitchBtn.textContent='▶ pitch';pitchBtn.className='tourbtn';
+pitchBtn.onclick=(e)=>{e.stopPropagation();startPitch();};
+viewsEl.insertBefore(pitchBtn,viewsEl.firstChild);
 
 /* ════════════ animate ════════════ */
 const DAY=60;
@@ -1211,6 +1307,12 @@ function animate(){
   for(let px=0;px<=188;px+=2){const a2=heartAmp(t-(188-px)*.021);const py=24-a2*17;
    px===0?ecgCtx.moveTo(px,py):ecgCtx.lineTo(px,py);}
   ecgCtx.stroke();}
+ /* vitals bar: pulsing heart + scrolling ECG */
+ if(vHeart){vHeart.style.transform='scale('+(1+hAmp*.55)+')';vHeart.style.color=hAmp>.05?'#ff6f5a':'#f0916f';}
+ {vEcgCtx.clearRect(0,0,64,22);vEcgCtx.strokeStyle='#ff8a78';vEcgCtx.lineWidth=1.4;vEcgCtx.beginPath();
+  for(let px=0;px<=64;px+=2){const a2=heartAmp(t-(64-px)*.03);const py=15-a2*12;
+   px===0?vEcgCtx.moveTo(px,py):vEcgCtx.lineTo(px,py);}
+  vEcgCtx.stroke();}
  /* diyas float out at dusk; flags never stop */
  for(const df of diyaFlames)df.s.material.opacity=(1-day)*(.6+.4*Math.sin(t*7+df.off));
  for(const f of flags)f.m.rotation.x=Math.sin(t*2.2+f.ph)*.22;
@@ -1222,7 +1324,12 @@ function animate(){
   tBatt.textContent=Math.round(batt)+' %';
   tGpu.textContent=Math.round(day>.08?34+8*Math.random():92+6*Math.random())+' %';
   tOut.textContent=Math.round(PEOPLE*(0.55+0.45*day));
-  tDay.textContent=1+Math.floor(t/DAY);}
+  tDay.textContent=1+Math.floor(t/DAY);
+  /* vitals bar */
+  vBpm.textContent=day>.08?64:52;
+  vSolar.textContent=(22.4*day*(0.93+Math.random()*.07)).toFixed(1);
+  vMode.textContent=day>.08?'DAY':'NIGHT';vMode.className='vv '+(day>.08?'gold':'teal');
+  vModeL.textContent=day>.08?'inference':'training';}
 
  /* plaque labels: TRUE constant on-screen px size + distance-band fade (auto-declutter) */
  {const vpx=renderer.domElement.clientHeight||innerHeight;
@@ -1239,6 +1346,9 @@ function animate(){
 
  /* cinematic tour pacing */
  if(tour.on){tour.timer+=dt;if(tour.timer>8.5)advanceTour();}
+ /* cinematic pitch pacing */
+ if(pitch.on){pitch.timer+=dt;pBar.style.width=Math.min(100,pitch.timer/pitch.hold*100)+'%';
+  if(pitch.timer>pitch.hold)pitchBeat();}
 
  if(camGoal){camera.position.lerp(camGoal.p,.045);controls.target.lerp(camGoal.t,.05);
   if(camera.position.distanceTo(camGoal.p)<1.5)camGoal=null;}
@@ -1248,6 +1358,8 @@ function animate(){
 animate();
 document.getElementById('loading').style.opacity=0;
 setTimeout(()=>document.getElementById('loading').remove(),900);
+/* the model pitches itself the moment it loads */
+if(!HERO) setTimeout(startPitch,1100);
 addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight);});
 </script>
 </body>
